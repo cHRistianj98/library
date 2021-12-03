@@ -36,6 +36,9 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private Set<AuthorAssignment> authorAssignments;
 
+    @OneToMany(mappedBy = "book")
+    private Set<Borrowing> borrowings;
+
     public Book() {
     }
 
