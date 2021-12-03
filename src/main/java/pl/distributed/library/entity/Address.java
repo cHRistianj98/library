@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -16,7 +17,8 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "address_id")
+    private int addressId;
 
     @NotNull
     @Column(name = "city", nullable = false)
@@ -37,24 +39,28 @@ public class Address {
     @OneToMany(mappedBy = "address")
     private Set<Client> clients;
 
+    @OneToOne(mappedBy = "address")
+    private Library library;
+
     public Address() {
     }
 
-    public Address(int id, @NotNull String city, @NotNull String street, @NotNull String number, @NotNull String postalCode, Set<Client> clients) {
-        this.id = id;
+    public Address(int addressId, @NotNull String city, @NotNull String street, @NotNull String number, @NotNull String postalCode, Set<Client> clients, Library library) {
+        this.addressId = addressId;
         this.city = city;
         this.street = street;
         this.number = number;
         this.postalCode = postalCode;
         this.clients = clients;
+        this.library = library;
     }
 
-    public int getId() {
-        return id;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public String getCity() {
@@ -97,15 +103,24 @@ public class Address {
         this.clients = clients;
     }
 
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
+    }
+
     @Override
     public String toString() {
         return "Address{" +
-                "id=" + id +
+                "addressId=" + addressId +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", number='" + number + '\'' +
                 ", postalCode='" + postalCode + '\'' +
                 ", clients=" + clients +
+                ", library=" + library +
                 '}';
     }
 }
