@@ -43,13 +43,14 @@ public class Book {
     }
 
     public Book(int bookId, @NotNull String title, @NotNull String description,
-                @NotNull int releaseYear, boolean availability, Set<AuthorAssignment> authorAssignments) {
+                @NotNull int releaseYear, boolean availability, Set<AuthorAssignment> authorAssignments, Set<Borrowing> borrowings) {
         this.bookId = bookId;
         this.title = title;
         this.description = description;
         this.releaseYear = releaseYear;
         this.availability = availability;
         this.authorAssignments = authorAssignments;
+        this.borrowings = borrowings;
     }
 
     public int getBookId() {
@@ -100,6 +101,14 @@ public class Book {
         this.authorAssignments = authorAssignments;
     }
 
+    public Set<Borrowing> getBorrowings() {
+        return borrowings;
+    }
+
+    public void setBorrowings(Set<Borrowing> borrowings) {
+        this.borrowings = borrowings;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -109,6 +118,7 @@ public class Book {
                 ", releaseYear=" + releaseYear +
                 ", availability=" + availability +
                 ", authorAssignments=" + authorAssignments +
+                ", borrowings=" + borrowings +
                 '}';
     }
 }

@@ -52,7 +52,8 @@ public class Client {
     public Client() {
     }
 
-    public Client(int clientId, @NotNull String name, @NotNull String forename, @NotNull String surname, @NotNull @Email String email, int debt, Address address) {
+    public Client(int clientId, @NotNull String name, @NotNull String forename, @NotNull String surname,
+                  @NotNull @Email String email, int debt, Address address, Set<Borrowing> borrowings) {
         this.clientId = clientId;
         this.name = name;
         this.forename = forename;
@@ -60,6 +61,7 @@ public class Client {
         this.email = email;
         this.debt = debt;
         this.address = address;
+        this.borrowings = borrowings;
     }
 
     public int getClientId() {
@@ -118,6 +120,14 @@ public class Client {
         this.address = address;
     }
 
+    public Set<Borrowing> getBorrowings() {
+        return borrowings;
+    }
+
+    public void setBorrowings(Set<Borrowing> borrowings) {
+        this.borrowings = borrowings;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -128,6 +138,7 @@ public class Client {
                 ", email='" + email + '\'' +
                 ", debt=" + debt +
                 ", address=" + address +
+                ", borrowings=" + borrowings +
                 '}';
     }
 }

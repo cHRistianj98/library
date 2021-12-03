@@ -49,13 +49,14 @@ public class Employee {
     }
 
     public Employee(int employeeId, @NotNull int salary, @NotNull String forename, @NotNull String surname,
-                    @NotNull @Email String email, Library library) {
+                    @NotNull @Email String email, Library library, Set<Borrowing> borrowings) {
         this.employeeId = employeeId;
         this.salary = salary;
         this.forename = forename;
         this.surname = surname;
         this.email = email;
         this.library = library;
+        this.borrowings = borrowings;
     }
 
     public int getEmployeeId() {
@@ -106,6 +107,14 @@ public class Employee {
         this.library = library;
     }
 
+    public Set<Borrowing> getBorrowings() {
+        return borrowings;
+    }
+
+    public void setBorrowings(Set<Borrowing> borrowings) {
+        this.borrowings = borrowings;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -115,6 +124,7 @@ public class Employee {
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", library=" + library +
+                ", borrowings=" + borrowings +
                 '}';
     }
 }
