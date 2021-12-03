@@ -5,11 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Entity
 @Table(name = "client")
@@ -39,22 +39,22 @@ public class Client {
 
     @Column(name = "debt")
     private int debt;
-    
-    @OneToMany(mappedBy = "client")
-    private Set<Address> addresses;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
 
     public Client() {
     }
 
-    public Client(int clientId, @NotNull String name, @NotNull String forename, @NotNull String surname,
-                  @NotNull @Email String email, int debt, Set<Address> addresses) {
+    public Client(int clientId, @NotNull String name, @NotNull String forename, @NotNull String surname, @NotNull @Email String email, int debt, Address address) {
         this.clientId = clientId;
         this.name = name;
         this.forename = forename;
         this.surname = surname;
         this.email = email;
         this.debt = debt;
-        this.addresses = addresses;
+        this.address = address;
     }
 
     public int getClientId() {
@@ -105,12 +105,12 @@ public class Client {
         this.debt = debt;
     }
 
-    public Set<Address> getAddresses() {
-        return addresses;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
@@ -122,7 +122,7 @@ public class Client {
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", debt=" + debt +
-                ", addresses=" + addresses +
+                ", address=" + address +
                 '}';
     }
 }

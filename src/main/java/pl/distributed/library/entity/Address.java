@@ -5,10 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 @Table(name = "address")
@@ -34,20 +34,19 @@ public class Address {
     @Column(name = "postal_code", nullable = false)
     private String postalCode;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false)
-    private Client client;
+    @OneToMany(mappedBy = "address")
+    private Set<Client> clients;
 
     public Address() {
     }
 
-    public Address(int id, @NotNull String city, @NotNull String street, @NotNull String number, @NotNull String postalCode, Client client) {
+    public Address(int id, @NotNull String city, @NotNull String street, @NotNull String number, @NotNull String postalCode, Set<Client> clients) {
         this.id = id;
         this.city = city;
         this.street = street;
         this.number = number;
         this.postalCode = postalCode;
-        this.client = client;
+        this.clients = clients;
     }
 
     public int getId() {
@@ -90,12 +89,12 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-    public Client getClient() {
-        return client;
+    public Set<Client> getClients() {
+        return clients;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
 
     @Override
@@ -106,7 +105,7 @@ public class Address {
                 ", street='" + street + '\'' +
                 ", number='" + number + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", client=" + client +
+                ", clients=" + clients +
                 '}';
     }
 }
