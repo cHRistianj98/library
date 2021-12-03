@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 @Table(name = "author")
@@ -24,13 +26,17 @@ public class Author {
     @Column(name = "surname", nullable = false)
     private String surname;
 
+    @OneToMany(mappedBy = "author")
+    private Set<AuthorAssignment> authorAssignments;
+
     public Author() {
     }
 
-    public Author(int authorId, @NotNull String forename, @NotNull String surname) {
+    public Author(int authorId, @NotNull String forename, @NotNull String surname, Set<AuthorAssignment> authorAssignments) {
         this.authorId = authorId;
         this.forename = forename;
         this.surname = surname;
+        this.authorAssignments = authorAssignments;
     }
 
     public int getAuthorId() {
@@ -57,12 +63,21 @@ public class Author {
         this.surname = surname;
     }
 
+    public Set<AuthorAssignment> getAuthorAssignments() {
+        return authorAssignments;
+    }
+
+    public void setAuthorAssignments(Set<AuthorAssignment> authorAssignments) {
+        this.authorAssignments = authorAssignments;
+    }
+
     @Override
     public String toString() {
         return "Author{" +
                 "authorId=" + authorId +
                 ", forename='" + forename + '\'' +
                 ", surname='" + surname + '\'' +
+                ", authorAssignments=" + authorAssignments +
                 '}';
     }
 }
