@@ -16,7 +16,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
-    private int bookId;
+    private Long bookId;
 
     @NotNull
     @Column(name = "title")
@@ -42,9 +42,8 @@ public class Book {
     public Book() {
     }
 
-    public Book(int bookId, @NotNull String title, @NotNull String description,
-                @NotNull int releaseYear, boolean availability, Set<AuthorAssignment> authorAssignments, Set<Borrowing> borrowings) {
-        this.bookId = bookId;
+    public Book(@NotNull String title, @NotNull String description, @NotNull int releaseYear, boolean availability,
+                Set<AuthorAssignment> authorAssignments, Set<Borrowing> borrowings) {
         this.title = title;
         this.description = description;
         this.releaseYear = releaseYear;
@@ -53,11 +52,11 @@ public class Book {
         this.borrowings = borrowings;
     }
 
-    public int getBookId() {
+    public Long getBookId() {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
 

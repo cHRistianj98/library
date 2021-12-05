@@ -19,7 +19,7 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
-    private int employeeId;
+    private Long employeeId;
 
     @NotNull
     @Column(name = "salary", nullable = false)
@@ -48,7 +48,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int employeeId, @NotNull int salary, @NotNull String forename, @NotNull String surname,
+    public Employee(Long employeeId, @NotNull int salary, @NotNull String forename, @NotNull String surname,
                     @NotNull @Email String email, Library library, Set<Borrowing> borrowings) {
         this.employeeId = employeeId;
         this.salary = salary;
@@ -59,11 +59,11 @@ public class Employee {
         this.borrowings = borrowings;
     }
 
-    public int getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
     }
 

@@ -19,7 +19,7 @@ public class Borrowing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "borrowing_id")
-    private int borrowingId;
+    private Long borrowingId;
 
     @NotNull
     @Column(name = "valid_from")
@@ -50,7 +50,7 @@ public class Borrowing {
     public Borrowing() {
     }
 
-    public Borrowing(int borrowingId, @NotNull LocalDate validFrom, @NotNull LocalDate validTo,
+    public Borrowing(Long borrowingId, @NotNull LocalDate validFrom, @NotNull LocalDate validTo,
                      LocalDate returnDate, Book book, Client client, Employee employee) {
         this.borrowingId = borrowingId;
         this.validFrom = validFrom;
@@ -61,11 +61,11 @@ public class Borrowing {
         this.employee = employee;
     }
 
-    public int getBorrowingId() {
+    public Long getBorrowingId() {
         return borrowingId;
     }
 
-    public void setBorrowingId(int borrowingId) {
+    public void setBorrowingId(Long borrowingId) {
         this.borrowingId = borrowingId;
     }
 

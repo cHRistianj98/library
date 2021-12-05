@@ -18,7 +18,7 @@ public class Library {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "library_id")
-    private int libraryId;
+    private Long libraryId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
@@ -30,16 +30,16 @@ public class Library {
     public Library() {
     }
 
-    public Library(int libraryId, Address address) {
+    public Library(Long libraryId, Address address) {
         this.libraryId = libraryId;
         this.address = address;
     }
 
-    public int getLibraryId() {
+    public Long getLibraryId() {
         return libraryId;
     }
 
-    public void setLibraryId(int libraryId) {
+    public void setLibraryId(Long libraryId) {
         this.libraryId = libraryId;
     }
 

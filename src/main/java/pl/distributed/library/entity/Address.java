@@ -18,7 +18,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id")
-    private int addressId;
+    private Long addressId;
 
     @NotNull
     @Column(name = "city", nullable = false)
@@ -45,7 +45,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(int addressId, @NotNull String city, @NotNull String street, @NotNull String number, @NotNull String postalCode, Set<Client> clients, Library library) {
+    public Address(Long addressId, @NotNull String city, @NotNull String street, @NotNull String number, @NotNull String postalCode, Set<Client> clients, Library library) {
         this.addressId = addressId;
         this.city = city;
         this.street = street;
@@ -55,11 +55,11 @@ public class Address {
         this.library = library;
     }
 
-    public int getAddressId() {
+    public Long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
 

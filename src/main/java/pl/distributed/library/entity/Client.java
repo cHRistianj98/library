@@ -20,7 +20,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "client_id")
-    private int clientId;
+    private Long clientId;
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -52,7 +52,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(int clientId, @NotNull String name, @NotNull String forename, @NotNull String surname,
+    public Client(Long clientId, @NotNull String name, @NotNull String forename, @NotNull String surname,
                   @NotNull @Email String email, int debt, Address address, Set<Borrowing> borrowings) {
         this.clientId = clientId;
         this.name = name;
@@ -64,11 +64,11 @@ public class Client {
         this.borrowings = borrowings;
     }
 
-    public int getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(int id) {
+    public void setClientId(Long id) {
         this.clientId = id;
     }
 

@@ -16,7 +16,7 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
-    private int authorId;
+    private Long authorId;
 
     @NotNull
     @Column(name = "forename", nullable = false)
@@ -32,18 +32,17 @@ public class Author {
     public Author() {
     }
 
-    public Author(int authorId, @NotNull String forename, @NotNull String surname, Set<AuthorAssignment> authorAssignments) {
-        this.authorId = authorId;
+    public Author(@NotNull String forename, @NotNull String surname, Set<AuthorAssignment> authorAssignments) {
         this.forename = forename;
         this.surname = surname;
         this.authorAssignments = authorAssignments;
     }
 
-    public int getAuthorId() {
+    public Long getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(int authorId) {
+    public void setAuthorId(Long authorId) {
         this.authorId = authorId;
     }
 

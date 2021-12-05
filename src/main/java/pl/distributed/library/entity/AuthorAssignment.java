@@ -15,7 +15,7 @@ public class AuthorAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_assignment_id")
-    private int authorAssignmentId;
+    private Long authorAssignmentId;
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
@@ -28,17 +28,17 @@ public class AuthorAssignment {
     public AuthorAssignment() {
     }
 
-    public AuthorAssignment(int authorAssignmentId, Author author, Book book) {
+    public AuthorAssignment(Long authorAssignmentId, Author author, Book book) {
         this.authorAssignmentId = authorAssignmentId;
         this.author = author;
         this.book = book;
     }
 
-    public int getAuthorAssignmentId() {
+    public Long getAuthorAssignmentId() {
         return authorAssignmentId;
     }
 
-    public void setAuthorAssignmentId(int authorAssignmentId) {
+    public void setAuthorAssignmentId(Long authorAssignmentId) {
         this.authorAssignmentId = authorAssignmentId;
     }
 
