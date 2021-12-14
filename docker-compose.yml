@@ -1,0 +1,19 @@
+version: '3'
+services:
+  library-backend:
+    build: ./
+    ports:
+    - "8080:8080"
+    depends_on:
+      - db-master
+
+  db-master:
+    container_name: 'db-master'
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: library
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: library
+    ports:
+    - "5432:5432"
