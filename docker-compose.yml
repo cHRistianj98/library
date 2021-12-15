@@ -1,9 +1,16 @@
 version: '3'
 services:
   library-backend:
-    build: ./
+    build:
+      context: .
+    container_name: library-backend
     ports:
     - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-master:5432/library
+      - SPRING_DATASOURCE_USERNAME=library
+      - SPRING_DATASOURCE_PASSWORD=zaq12wsx
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
     depends_on:
       - db-master
 
@@ -13,7 +20,6 @@ services:
     restart: always
     environment:
       POSTGRES_USER: library
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: library
+      POSTGRES_PASSWORD: zaq12wsx
     ports:
     - "5432:5432"
