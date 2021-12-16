@@ -18,8 +18,28 @@ services:
     container_name: 'db-master'
     image: postgres
     restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./my-postgres.conf:/etc/postgresql/postgresql.conf
+      - ./my-pg_hba.conf:/etc/postgresql/pg_hba.conf
     environment:
       POSTGRES_USER: library
       POSTGRES_PASSWORD: zaq12wsx
     ports:
     - "5432:5432"
+
+  db-slave-1:
+    container_name: 'db-slave-1'
+    image: postgres
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./my-postgres.conf:/etc/postgresql/postgresql.conf
+      - ./my-pg_hba.conf:/etc/postgresql/pg_hba.conf
+    environment:
+      POSTGRES_USER: library
+      POSTGRES_PASSWORD: zaq12wsx
+    ports:
+      - "5442:5432"
+    depends_on:
+      - db-master
