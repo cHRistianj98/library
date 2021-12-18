@@ -28,8 +28,7 @@ public class AuthorAssignment {
     public AuthorAssignment() {
     }
 
-    public AuthorAssignment(Long authorAssignmentId, Author author, Book book) {
-        this.authorAssignmentId = authorAssignmentId;
+    public AuthorAssignment(Author author, Book book) {
         this.author = author;
         this.book = book;
     }

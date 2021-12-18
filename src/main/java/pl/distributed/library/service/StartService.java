@@ -7,7 +7,9 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import pl.distributed.library.entity.Author;
+import pl.distributed.library.entity.AuthorAssignment;
 import pl.distributed.library.entity.Book;
+import pl.distributed.library.repository.AuthorAssignmentRepository;
 import pl.distributed.library.repository.AuthorRepository;
 import pl.distributed.library.repository.BookRepository;
 
@@ -17,26 +19,29 @@ import java.util.HashSet;
 public class StartService {
     private static Logger logger = LoggerFactory.getLogger(StartService.class);
     private AuthorRepository authorRepository;
+    private AuthorAssignmentRepository authorAssignmentRepository;
     private BookRepository bookRepository;
 
     @Autowired
-    public StartService(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public StartService(AuthorRepository authorRepository, BookRepository bookRepository,
+                        AuthorAssignmentRepository authorAssignmentRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.authorAssignmentRepository = authorAssignmentRepository;
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillDatabase() {
-        authorRepository.save(new Author("Robert", "Martin", new HashSet<>()));
-        authorRepository.save(new Author("Marcin", "Najman", new HashSet<>()));
-        authorRepository.save(new Author("Robert", "Makłowicz", new HashSet<>()));
-        authorRepository.save(new Author("Andrzej", "Duda", new HashSet<>()));
-        authorRepository.save(new Author("Jerzy", "Kryszak", new HashSet<>()));
+        Author author = new Author("Robert", "Martin", new HashSet<>());
+        Book book = new Book("Czysty kod", "Podręcznik dobrego programisty", 2010, true, new HashSet<>(), new HashSet<>());
+
+        authorRepository.save(author);
         logger.info("Authors were added!");
 
-        bookRepository.save(new Book("Czysty kod", "Podręcznik dobrego programisty", 2010, true, new HashSet<>(), new HashSet<>()));
+        bookRepository.save(book);
         logger.info("Books were added!");
-        logger.info("New!");
 
+        authorAssignmentRepository.save(new AuthorAssignment(author, book));
+        logger.info("Author assignments were added!");
     }
 }
