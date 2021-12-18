@@ -36,6 +36,7 @@ public class StartService {
 
         bookRepository.save(new Book("Czysty kod", "Podręcznik dobrego programisty", 2010, true, new HashSet<>(), new HashSet<>()));
         logger.info("Books were added!");
+        logger.info("New!");
 
     }
 }

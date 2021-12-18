@@ -1,45 +1,79 @@
 version: '3'
+
+networks:
+  app-tier:
+    driver: bridge
+
+
 services:
   library-backend:
     build:
       context: .
     container_name: library-backend
+    restart: always
     ports:
     - "8080:8080"
+    networks:
+      - app-tier
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-master:5432/library
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql-master:5432/library
       - SPRING_DATASOURCE_USERNAME=library
       - SPRING_DATASOURCE_PASSWORD=zaq12wsx
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create
     depends_on:
-      - db-master
+      - postgresql-master
 
-  db-master:
-    container_name: 'db-master'
-    image: postgres
-    restart: always
-    volumes:
-      - ./data:/var/lib/postgresql/data
-      - ./my-postgres.conf:/etc/postgresql/postgresql.conf
-      - ./my-pg_hba.conf:/etc/postgresql/pg_hba.conf
-    environment:
-      POSTGRES_USER: library
-      POSTGRES_PASSWORD: zaq12wsx
+  postgresql-master:
+    image: 'bitnami/postgresql:11'
+    container_name: master
+    networks:
+      - app-tier
     ports:
-    - "5432:5432"
+      - '5432:5432'
+    restart: always
+    environment:
+      - POSTGRESQL_REPLICATION_MODE=master
+      - POSTGRESQL_REPLICATION_USER=replicator
+      - POSTGRESQL_REPLICATION_PASSWORD=replicator_pass
+      - POSTGRESQL_USERNAME=library
+      - POSTGRESQL_PASSWORD=zaq12wsx
+      - POSTGRESQL_DATABASE=library
+      - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
+      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=2
 
-  db-slave-1:
-    container_name: 'db-slave-1'
-    image: postgres
+  postgresql-slave:
+    image: 'bitnami/postgresql:11'
+    container_name: slave-1
+    networks:
+      - app-tier
     restart: always
-    volumes:
-      - ./data:/var/lib/postgresql/data
-      - ./my-postgres.conf:/etc/postgresql/postgresql.conf
-      - ./my-pg_hba.conf:/etc/postgresql/pg_hba.conf
-    environment:
-      POSTGRES_USER: library
-      POSTGRES_PASSWORD: zaq12wsx
     ports:
-      - "5442:5432"
+      - '5433:5432'
     depends_on:
-      - db-master
+      - postgresql-master
+    environment:
+      - POSTGRESQL_REPLICATION_MODE=slave
+      - POSTGRESQL_REPLICATION_USER=replicator
+      - POSTGRESQL_REPLICATION_PASSWORD=replicator_pass
+      - POSTGRESQL_MASTER_HOST=postgresql-master
+      - POSTGRESQL_PASSWORD=zaq12wsx
+      - POSTGRESQL_MASTER_PORT_NUMBER=5432
+
+
+  postgresql-slave2:
+    image: 'bitnami/postgresql:11'
+    container_name: slave-2
+    restart: always
+    networks:
+      - app-tier
+    ports:
+      - '5434:5432'
+    depends_on:
+      - postgresql-master
+    environment:
+      - POSTGRESQL_REPLICATION_MODE=slave
+      - POSTGRESQL_REPLICATION_USER=replicator
+      - POSTGRESQL_REPLICATION_PASSWORD=replicator_pass
+      - POSTGRESQL_PASSWORD=zaq12wsx
+      - POSTGRESQL_MASTER_HOST=postgresql-master
+      - POSTGRESQL_MASTER_PORT_NUMBER=5432
