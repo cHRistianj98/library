@@ -1,5 +1,8 @@
 package pl.distributed.library.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +16,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -44,87 +49,4 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     private Set<Borrowing> borrowings;
-
-    public Employee() {
-    }
-
-    public Employee(Long employeeId, @NotNull int salary, @NotNull String forename, @NotNull String surname,
-                    @NotNull @Email String email, Library library, Set<Borrowing> borrowings) {
-        this.employeeId = employeeId;
-        this.salary = salary;
-        this.forename = forename;
-        this.surname = surname;
-        this.email = email;
-        this.library = library;
-        this.borrowings = borrowings;
-    }
-
-    public Long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
-
-    public String getForename() {
-        return forename;
-    }
-
-    public void setForename(String forename) {
-        this.forename = forename;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Library getLibrary() {
-        return library;
-    }
-
-    public void setLibrary(Library library) {
-        this.library = library;
-    }
-
-    public Set<Borrowing> getBorrowings() {
-        return borrowings;
-    }
-
-    public void setBorrowings(Set<Borrowing> borrowings) {
-        this.borrowings = borrowings;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "employeeId=" + employeeId +
-                ", salary=" + salary +
-                ", forename='" + forename + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", library=" + library +
-                ", borrowings=" + borrowings +
-                '}';
-    }
 }

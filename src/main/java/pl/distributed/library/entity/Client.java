@@ -1,5 +1,8 @@
 package pl.distributed.library.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +16,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "client")
 public class Client {
@@ -48,97 +53,4 @@ public class Client {
 
     @OneToMany(mappedBy = "client")
     private Set<Borrowing> borrowings;
-
-    public Client() {
-    }
-
-    public Client(Long clientId, @NotNull String name, @NotNull String forename, @NotNull String surname,
-                  @NotNull @Email String email, int debt, Address address, Set<Borrowing> borrowings) {
-        this.clientId = clientId;
-        this.name = name;
-        this.forename = forename;
-        this.surname = surname;
-        this.email = email;
-        this.debt = debt;
-        this.address = address;
-        this.borrowings = borrowings;
-    }
-
-    public Long getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(Long id) {
-        this.clientId = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getForename() {
-        return forename;
-    }
-
-    public void setForename(String forename) {
-        this.forename = forename;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getDebt() {
-        return debt;
-    }
-
-    public void setDebt(int debt) {
-        this.debt = debt;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Set<Borrowing> getBorrowings() {
-        return borrowings;
-    }
-
-    public void setBorrowings(Set<Borrowing> borrowings) {
-        this.borrowings = borrowings;
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "clientId=" + clientId +
-                ", name='" + name + '\'' +
-                ", forename='" + forename + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", debt=" + debt +
-                ", address=" + address +
-                ", borrowings=" + borrowings +
-                '}';
-    }
 }

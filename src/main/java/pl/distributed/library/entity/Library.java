@@ -1,5 +1,8 @@
 package pl.distributed.library.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "library")
 public class Library {
@@ -26,36 +31,4 @@ public class Library {
 
     @OneToMany(mappedBy = "library")
     private Set<Employee> employees;
-
-    public Library() {
-    }
-
-    public Library(Long libraryId, Address address) {
-        this.libraryId = libraryId;
-        this.address = address;
-    }
-
-    public Long getLibraryId() {
-        return libraryId;
-    }
-
-    public void setLibraryId(Long libraryId) {
-        this.libraryId = libraryId;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "Library{" +
-                "libraryId=" + libraryId +
-                ", address=" + address +
-                '}';
-    }
 }

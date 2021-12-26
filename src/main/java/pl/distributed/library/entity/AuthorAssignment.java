@@ -1,5 +1,8 @@
 package pl.distributed.library.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "author_assignment")
 public class AuthorAssignment {
@@ -25,44 +30,8 @@ public class AuthorAssignment {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
-    public AuthorAssignment() {
-    }
-
     public AuthorAssignment(Author author, Book book) {
         this.author = author;
         this.book = book;
-    }
-
-    public Long getAuthorAssignmentId() {
-        return authorAssignmentId;
-    }
-
-    public void setAuthorAssignmentId(Long authorAssignmentId) {
-        this.authorAssignmentId = authorAssignmentId;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    @Override
-    public String toString() {
-        return "AuthorAssignment{" +
-                "authorAssignmentId=" + authorAssignmentId +
-                ", author=" + author +
-                ", book=" + book +
-                '}';
     }
 }

@@ -1,9 +1,14 @@
 package pl.distributed.library.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "author")
 public class Author {
@@ -23,54 +28,9 @@ public class Author {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<AuthorAssignment> authorAssignments;
 
-    public Author() {
-    }
-
     public Author(@NotNull String forename, @NotNull String surname, Set<AuthorAssignment> authorAssignments) {
         this.forename = forename;
         this.surname = surname;
         this.authorAssignments = authorAssignments;
-    }
-
-    public Long getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
-
-    public String getForename() {
-        return forename;
-    }
-
-    public void setForename(String forename) {
-        this.forename = forename;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Set<AuthorAssignment> getAuthorAssignments() {
-        return authorAssignments;
-    }
-
-    public void setAuthorAssignments(Set<AuthorAssignment> authorAssignments) {
-        this.authorAssignments = authorAssignments;
-    }
-
-    @Override
-    public String toString() {
-        return "Author{" +
-                "authorId=" + authorId +
-                ", forename='" + forename + '\'' +
-                ", surname='" + surname + '\'' +
-                ", authorAssignments=" + authorAssignments +
-                '}';
     }
 }

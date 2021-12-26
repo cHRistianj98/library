@@ -1,5 +1,8 @@
 package pl.distributed.library.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "book")
 public class Book {
@@ -39,9 +44,6 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private Set<Borrowing> borrowings;
 
-    public Book() {
-    }
-
     public Book(@NotNull String title, @NotNull String description, @NotNull int releaseYear, boolean availability,
                 Set<AuthorAssignment> authorAssignments, Set<Borrowing> borrowings) {
         this.title = title;
@@ -50,74 +52,5 @@ public class Book {
         this.availability = availability;
         this.authorAssignments = authorAssignments;
         this.borrowings = borrowings;
-    }
-
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getReleaseYear() {
-        return releaseYear;
-    }
-
-    public void setReleaseYear(int releaseYear) {
-        this.releaseYear = releaseYear;
-    }
-
-    public boolean isAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
-    }
-
-    public Set<AuthorAssignment> getAuthorAssignments() {
-        return authorAssignments;
-    }
-
-    public void setAuthorAssignments(Set<AuthorAssignment> authorAssignments) {
-        this.authorAssignments = authorAssignments;
-    }
-
-    public Set<Borrowing> getBorrowings() {
-        return borrowings;
-    }
-
-    public void setBorrowings(Set<Borrowing> borrowings) {
-        this.borrowings = borrowings;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bookId=" + bookId +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", releaseYear=" + releaseYear +
-                ", availability=" + availability +
-                ", authorAssignments=" + authorAssignments +
-                ", borrowings=" + borrowings +
-                '}';
     }
 }

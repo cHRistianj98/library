@@ -38,8 +38,8 @@ services:
       - POSTGRESQL_USERNAME=library
       - POSTGRESQL_PASSWORD=zaq12wsx
       - POSTGRESQL_DATABASE=library
-      - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
-      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=2
+#      - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
+#      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=2
 
   postgresql-slave:
     image: 'bitnami/postgresql:11'

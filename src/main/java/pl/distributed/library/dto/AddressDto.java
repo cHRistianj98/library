@@ -7,10 +7,16 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
-public class AuthorDto {
+public class AddressDto {
     @NotNull
-    private String forename;
+    private String city;
 
     @NotNull
-    private String surname;
+    private String street;
+
+    @NotNull
+    private String number;
+
+    @NotNull
+    private String postalCode;
 }
