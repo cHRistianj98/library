@@ -28,10 +28,6 @@ public class Client {
     private Long clientId;
 
     @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @NotNull
     @Column(name = "forename", nullable = false)
     private String forename;
 

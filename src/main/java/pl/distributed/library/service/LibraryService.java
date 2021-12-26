@@ -28,7 +28,7 @@ public class LibraryService {
     }
 
     @Transactional
-    public Library addLibrary(AddressDto addressDto) {
+    public LibraryDto addLibrary(AddressDto addressDto) {
         Optional<Address> address = addressRepository.findByCityAndStreetAndNumberAndPostalCode(
                 addressDto.getCity(),
                 addressDto.getStreet(),
@@ -46,7 +46,7 @@ public class LibraryService {
             Library library = new Library();
             library.setAddress(newAddress);
             libraryRepository.save(library);
-            return library;
+            return LibraryMapper.libraryToLibraryDto(library);
         }
 
         throw new LibraryAlreadyExistsException();

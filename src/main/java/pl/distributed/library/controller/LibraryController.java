@@ -45,9 +45,9 @@ public class LibraryController {
 
     @PostMapping
     @ApiOperation("Add library")
-    public ResponseEntity<Library> addLibrary(@RequestBody @Valid AddressDto addressDto) {
-        Library library = libraryService.addLibrary(addressDto);
-        return ResponseEntity.created(URI.create("/" + library.getLibraryId())).body(library);
+    public ResponseEntity<LibraryDto> addLibrary(@RequestBody @Valid AddressDto addressDto) {
+        LibraryDto libraryDto = libraryService.addLibrary(addressDto);
+        return ResponseEntity.created(URI.create("/" + libraryDto.getId())).body(libraryDto);
     }
 
     @DeleteMapping("/{id}")
