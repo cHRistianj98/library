@@ -4,13 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.AddressDto;
+import pl.distributed.library.dto.LibraryDto;
 import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.Library;
 import pl.distributed.library.exception.LibraryAlreadyExistsException;
+import pl.distributed.library.mapper.LibraryMapper;
 import pl.distributed.library.repository.AddressRepository;
 import pl.distributed.library.repository.LibraryRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LibraryService {
@@ -46,5 +50,17 @@ public class LibraryService {
         }
 
         throw new LibraryAlreadyExistsException();
+    }
+
+    public Long deleteLibrary(Long id) {
+        libraryRepository.deleteById(id);
+        return id;
+    }
+
+    public List<LibraryDto> findAll() {
+        List<Library> libraries = libraryRepository.findAll();
+        return libraries.stream()
+                .map(LibraryMapper::libraryToLibraryDto)
+                .collect(Collectors.toList());
     }
 }
