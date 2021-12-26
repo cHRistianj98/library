@@ -63,4 +63,8 @@ public class LibraryService {
                 .map(LibraryMapper::libraryToLibraryDto)
                 .collect(Collectors.toList());
     }
+
+    public Optional<Library> findById(Long id) {
+        return libraryRepository.findById(id);
+    }
 }

@@ -11,7 +11,7 @@ public class AddressMapper {
         addressDto.setCity(address.getCity());
         addressDto.setStreet(address.getStreet());
         addressDto.setNumber(address.getNumber());
-        address.setPostalCode(address.getPostalCode());
+        addressDto.setPostalCode(address.getPostalCode());
         return addressDto;
     }
 }
