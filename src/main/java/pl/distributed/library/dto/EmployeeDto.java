@@ -2,17 +2,19 @@ package pl.distributed.library.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.distributed.library.entity.AuthorAssignment;
 
-import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class AuthorDto {
+public class EmployeeDto {
     @NotNull
-    private Long authorId;
+    private Long employeeId;
+
+    @NotNull
+    private int salary;
 
     @NotNull
     private String forename;
@@ -21,5 +23,12 @@ public class AuthorDto {
     private String surname;
 
     @NotNull
-    private Set<AuthorAssignmentDto> authorAssignments;
+    @Email
+    private String email;
+
+    @NotNull
+    private LibraryDto library;
+
+    @NotNull
+    private Set<BorrowingDto> borrowings;
 }

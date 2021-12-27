@@ -2,19 +2,18 @@ package pl.distributed.library.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.distributed.library.entity.Employee;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class LibraryDto {
+public class AuthorAssignmentDto {
     @NotNull
-    private Long id;
+    private Long authorAssignmentId;
 
     @NotNull
-    private AddressDto addressDto;
+    private AuthorDto author;
 
-    private Set<EmployeeDto> employees;
+    @NotNull
+    private BookDto book;
 }
