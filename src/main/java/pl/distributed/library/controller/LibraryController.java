@@ -1,6 +1,8 @@
 package pl.distributed.library.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/libraries")
 public class LibraryController {
-    private LibraryService libraryService;
+    private final LibraryService libraryService;
 
     @Autowired
     public LibraryController(LibraryService libraryService) {
@@ -28,12 +30,24 @@ public class LibraryController {
 
     @GetMapping
     @ApiOperation("Get libraries")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = LibraryDto.class)
+    })
     public ResponseEntity<List<LibraryDto>> getLibraries() {
         return ResponseEntity.ok(libraryService.findAll());
     }
 
     @GetMapping("/{id}")
     @ApiOperation("Get library")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = LibraryDto.class)
+    })
     public ResponseEntity<LibraryDto> getLibrary(@PathVariable Long id) {
         Optional<Library> library = libraryService.findById(id);
         if (library.isEmpty()) {
@@ -45,6 +59,12 @@ public class LibraryController {
 
     @PostMapping
     @ApiOperation("Add library")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = LibraryDto.class)
+    })
     public ResponseEntity<LibraryDto> addLibrary(@RequestBody @Valid AddressDto addressDto) {
         LibraryDto libraryDto = libraryService.addLibrary(addressDto);
         return ResponseEntity.created(URI.create("/" + libraryDto.getId())).body(libraryDto);
@@ -52,6 +72,12 @@ public class LibraryController {
 
     @DeleteMapping("/{id}")
     @ApiOperation("delete library")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
+    })
     public ResponseEntity<Long> deleteLibrary(@PathVariable Long id) {
         return ResponseEntity.ok(libraryService.deleteLibrary(id));
     }

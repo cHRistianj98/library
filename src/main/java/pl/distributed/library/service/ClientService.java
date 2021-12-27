@@ -1,22 +1,26 @@
 package pl.distributed.library.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.ClientDto;
 import pl.distributed.library.dto.NewClientDto;
 import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.Client;
+import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.ClientMapper;
 import pl.distributed.library.repository.AddressRepository;
 import pl.distributed.library.repository.ClientRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
-    private ClientRepository clientRepository;
-    private AddressRepository addressRepository;
+    private final ClientRepository clientRepository;
+    private final AddressRepository addressRepository;
 
     @Autowired
     public ClientService(ClientRepository clientRepository, AddressRepository addressRepository) {
@@ -51,5 +55,25 @@ public class ClientService {
         client.setDebt(0);
         clientRepository.save(client);
         return ClientMapper.clientToClientDto(client);
+    }
+
+    public Optional<Client> findById(Long id) {
+        return clientRepository.findById(id);
+    }
+
+    public List<ClientDto> findAll() {
+        List<Client> clients = clientRepository.findAll();
+        return clients.stream()
+                .map(ClientMapper::clientToClientDto)
+                .collect(Collectors.toList());
+    }
+
+    public Long deleteClient(Long id) {
+        try {
+            clientRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ResourceNotFoundException();
+        }
+        return id;
     }
 }
