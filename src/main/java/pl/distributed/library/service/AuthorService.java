@@ -4,9 +4,14 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.distributed.library.dto.AddressDto;
+import pl.distributed.library.dto.AuthorCreateDto;
 import pl.distributed.library.dto.AuthorDto;
 import pl.distributed.library.dto.AuthorUpdateDto;
+import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.Author;
+import pl.distributed.library.mapper.AddressMapper;
+import pl.distributed.library.mapper.AuthorMapper;
 import pl.distributed.library.repository.AuthorRepository;
 
 import javax.persistence.EntityManager;
@@ -14,6 +19,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
@@ -27,23 +33,13 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    public Author saveAuthor(AuthorDto authorDto) {
+    @Transactional
+    public AuthorDto saveAuthor(AuthorCreateDto authorDto) {
         Author author = new Author();
         author.setForename(authorDto.getForename());
         author.setSurname(authorDto.getSurname());
-        return authorRepository.save(author);
-    }
-
-    @Transactional
-    public Author updateAuthor(AuthorUpdateDto authorUpdateDto) {
-        Optional<Author> authorOpt = authorRepository.findById(authorUpdateDto.getAuthorId());
-        Author author = authorOpt.get();
-        Session session = (Session) entityManager.unwrap(Session.class);
-        session.close();
-        author.getAuthorAssignments();
-        author.setForename(authorUpdateDto.getForename());
-        author.setSurname(authorUpdateDto.getSurname());
-        return authorRepository.save(author);
+        Author authorFromRepo = authorRepository.save(author);
+        return AuthorMapper.authorToAuthorDto(authorFromRepo);
     }
 
     public void deleteAuthor(Long authorId) {
@@ -51,8 +47,14 @@ public class AuthorService {
         authorRepository.delete(author);
     }
 
-    @Transactional
-    public List<Author> getAuthors() {
-        return authorRepository.findAll();
+    public Optional<Author> findById(Long id) {
+        return authorRepository.findById(id);
+    }
+
+    public List<AuthorDto> findAll() {
+        List<Author> authors = authorRepository.findAll();
+        return authors.stream()
+                .map(AuthorMapper::authorToAuthorDto)
+                .collect(Collectors.toList());
     }
 }

@@ -2,12 +2,14 @@ package pl.distributed.library.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.distributed.library.dto.AddressDto;
-import pl.distributed.library.dto.AuthorAssignmentDto;
+import org.springframework.transaction.annotation.Transactional;
+import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.AuthorAssignment;
+import pl.distributed.library.entity.Client;
 import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.AuthorAssignmentMapper;
+import pl.distributed.library.mapper.ClientMapper;
 import pl.distributed.library.repository.AddressRepository;
 
 import java.util.List;
@@ -32,5 +34,16 @@ public class AddressService {
         return addresses.stream()
                 .map(AddressMapper::addressToAddressDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public AddressDto addAddress(AddressCreateDto addressCreateDto) {
+        Address address = new Address();
+        address.setPostalCode(addressCreateDto.getPostalCode());
+        address.setNumber(addressCreateDto.getNumber());
+        address.setStreet(addressCreateDto.getStreet());
+        address.setCity(addressCreateDto.getCity());
+        Address addressFromRepo = addressRepository.save(address);
+        return AddressMapper.addressToAddressDto(addressFromRepo);
     }
 }
