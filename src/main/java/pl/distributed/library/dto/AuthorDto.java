@@ -19,7 +19,4 @@ public class AuthorDto {
 
     @NotNull
     private String surname;
-
-    @NotNull
-    private Set<AuthorAssignmentDto> authorAssignments;
 }

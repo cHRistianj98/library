@@ -1,5 +1,6 @@
 package pl.distributed.library.mapper;
 
+import pl.distributed.library.dto.AddressCreateDto;
 import pl.distributed.library.dto.AddressDto;
 import pl.distributed.library.dto.BookDto;
 import pl.distributed.library.entity.Address;
@@ -23,8 +24,15 @@ public class AddressMapper {
         addressDto.setStreet(address.getStreet());
         addressDto.setNumber(address.getNumber());
         addressDto.setPostalCode(address.getPostalCode());
-        addressDto.setLibrary(LibraryMapper.libraryToLibraryDto(address.getLibrary()));
-        addressDto.setClients(ClientMapper.clientSetToClientDtoSet(address.getClients()));
         return addressDto;
+    }
+
+    public static AddressCreateDto addressToAddressCreateDto(Address address) {
+        AddressCreateDto addressCreateDto = new AddressCreateDto();
+        addressCreateDto.setCity(address.getCity());
+        addressCreateDto.setStreet(address.getStreet());
+        addressCreateDto.setNumber(address.getNumber());
+        addressCreateDto.setPostalCode(address.getPostalCode());
+        return addressCreateDto;
     }
 }

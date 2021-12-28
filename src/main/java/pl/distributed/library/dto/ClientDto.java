@@ -25,9 +25,4 @@ public class ClientDto {
     private String email;
 
     private int debt;
-
-    @NotNull
-    private AddressDto addressDto;
-
-    private Set<BorrowingDto> borrowingsDto;
 }

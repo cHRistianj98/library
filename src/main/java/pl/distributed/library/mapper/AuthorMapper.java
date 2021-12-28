@@ -18,8 +18,6 @@ public class AuthorMapper {
         authorDto.setForename(author.getForename());
         authorDto.setSurname(author.getSurname());
         authorDto.setAuthorId(author.getAuthorId());
-        authorDto.setAuthorAssignments(
-                AuthorAssignmentMapper.authorAssignmentSetToAuthorAssignmentDtoSet(author.getAuthorAssignments()));
         return authorDto;
     }
 }

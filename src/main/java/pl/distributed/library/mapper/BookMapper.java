@@ -20,9 +20,6 @@ public class BookMapper {
         bookDto.setReleaseYear(book.getReleaseYear());
         bookDto.setDescription(book.getDescription());
         bookDto.setAvailability(book.isAvailability());
-        bookDto.setBorrowings(BorrowingMapper.borrowingSetToBorrowingDtoSet(book.getBorrowings()));
-        bookDto.setAuthorAssignments(AuthorAssignmentMapper.authorAssignmentSetToAuthorAssignmentDtoSet(
-                book.getAuthorAssignments()));
         return bookDto;
     }
 }

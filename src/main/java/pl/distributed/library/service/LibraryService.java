@@ -3,7 +3,9 @@ package pl.distributed.library.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.distributed.library.dto.AddressCreateDto;
 import pl.distributed.library.dto.AddressDto;
+import pl.distributed.library.dto.LibraryCreateDto;
 import pl.distributed.library.dto.LibraryDto;
 import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.Library;
@@ -28,25 +30,26 @@ public class LibraryService {
     }
 
     @Transactional
-    public LibraryDto addLibrary(AddressDto addressDto) {
+    public LibraryCreateDto addLibrary(AddressCreateDto addressCreateDto) {
         Optional<Address> address = addressRepository.findByCityAndStreetAndNumberAndPostalCode(
-                addressDto.getCity(),
-                addressDto.getStreet(),
-                addressDto.getNumber(),
-                addressDto.getPostalCode());
+                addressCreateDto.getCity(),
+                addressCreateDto.getStreet(),
+                addressCreateDto.getNumber(),
+                addressCreateDto.getPostalCode());
 
         if (address.isEmpty()) {
             Address newAddress = new Address();
-            newAddress.setCity(addressDto.getCity());
-            newAddress.setStreet(addressDto.getStreet());
-            newAddress.setNumber(addressDto.getNumber());
-            newAddress.setPostalCode(addressDto.getPostalCode());
+            newAddress.setCity(addressCreateDto.getCity());
+            newAddress.setStreet(addressCreateDto.getStreet());
+            newAddress.setNumber(addressCreateDto.getNumber());
+            newAddress.setPostalCode(addressCreateDto.getPostalCode());
             addressRepository.save(newAddress);
 
             Library library = new Library();
             library.setAddress(newAddress);
             libraryRepository.save(library);
-            return LibraryMapper.libraryToLibraryDto(library);
+
+            return LibraryMapper.libraryToLibraryCreateDto(library);
         }
 
         throw new LibraryAlreadyExistsException();

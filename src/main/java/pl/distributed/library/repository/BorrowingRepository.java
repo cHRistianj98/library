@@ -2,20 +2,18 @@ package pl.distributed.library.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.distributed.library.entity.Client;
+import pl.distributed.library.entity.Borrowing;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface BorrowingRepository extends JpaRepository<Borrowing, Long> {
+    <S extends Borrowing> S save(S entity);
 
-    <S extends Client> S save(S entity);
+    List<Borrowing> findAll();
 
-    List<Client> findAll();
-
-    Optional<Client> findById(Long aLong);
+    Optional<Borrowing> findById(Long aLong);
 
     void deleteById(Long aLong);
-
 }

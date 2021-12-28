@@ -8,12 +8,9 @@ import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class LibraryDto {
+public class LibraryCreateDto {
     @NotNull
-    private Long id;
-
-    @NotNull
-    private AddressDto addressDto;
+    private AddressCreateDto addressCreateDto;
 
     private Set<EmployeeDto> employees;
 }

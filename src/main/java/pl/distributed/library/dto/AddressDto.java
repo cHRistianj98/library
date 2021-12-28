@@ -23,10 +23,4 @@ public class AddressDto {
 
     @NotNull
     private String postalCode;
-
-    @NotNull
-    private Set<ClientDto> clients;
-
-    @NotNull
-    private LibraryDto library;
 }

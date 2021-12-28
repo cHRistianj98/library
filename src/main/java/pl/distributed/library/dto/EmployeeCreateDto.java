@@ -8,10 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
-public class EmployeeDto {
-    @NotNull
-    private Long employeeId;
-
+public class EmployeeCreateDto {
     @NotNull
     private int salary;
 
@@ -25,4 +22,6 @@ public class EmployeeDto {
     @Email
     private String email;
 
+    @NotNull
+    private Long libraryId;
 }

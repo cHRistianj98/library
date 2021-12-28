@@ -25,7 +25,4 @@ public class BookDto {
 
     private boolean availability;
 
-    private Set<AuthorAssignmentDto> authorAssignments;
-
-    private Set<BorrowingDto> borrowings;
 }

@@ -6,7 +6,9 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.distributed.library.dto.AddressCreateDto;
 import pl.distributed.library.dto.AddressDto;
+import pl.distributed.library.dto.LibraryCreateDto;
 import pl.distributed.library.dto.LibraryDto;
 import pl.distributed.library.entity.Library;
 import pl.distributed.library.exception.ResourceNotFoundException;
@@ -65,9 +67,9 @@ public class LibraryController {
             @ApiResponse(code = 404, message = "Service not found"),
             @ApiResponse(code = 200, message = "Successful deleted", response = LibraryDto.class)
     })
-    public ResponseEntity<LibraryDto> addLibrary(@RequestBody @Valid AddressDto addressDto) {
-        LibraryDto libraryDto = libraryService.addLibrary(addressDto);
-        return ResponseEntity.created(URI.create("/" + libraryDto.getId())).body(libraryDto);
+    public ResponseEntity<LibraryCreateDto> addLibrary(@RequestBody @Valid AddressCreateDto addressCreateDto) {
+        LibraryCreateDto libraryCreateDto = libraryService.addLibrary(addressCreateDto);
+        return ResponseEntity.ok(libraryCreateDto);
     }
 
     @DeleteMapping("/{id}")

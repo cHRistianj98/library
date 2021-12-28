@@ -4,16 +4,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class LibraryDto {
+public class AddressCreateDto {
     @NotNull
-    private Long id;
+    private String city;
 
     @NotNull
-    private AddressDto addressDto;
+    private String street;
 
-    private Set<EmployeeDto> employees;
+    @NotNull
+    private String number;
+
+    @NotNull
+    private String postalCode;
 }
