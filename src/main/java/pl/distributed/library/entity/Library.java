@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -32,5 +33,10 @@ public class Library {
     private Address address;
 
     @OneToMany(mappedBy = "library")
-    private Set<Employee> employees;
+    private Set<Employee> employees = new HashSet<>();
+
+    public Library(Long libraryId, Address address) {
+        this.libraryId = libraryId;
+        this.address = address;
+    }
 }

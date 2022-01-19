@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.*;
+import pl.distributed.library.exception.BookIsNotAvailableException;
 import pl.distributed.library.exception.LibraryNotFoundException;
 import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.BorrowingMapper;
@@ -50,21 +51,26 @@ public class BorrowingService {
 
     @Transactional
     public BorrowingDto addBorrowing(BorrowingCreateDto borrowingCreateDto) {
-        Optional<Book> book = bookRepository.findById(borrowingCreateDto.getBookId());
-        Optional<Client> client = clientRepository.findById(borrowingCreateDto.getClientId());
-        Optional<Employee> employee = employeeRepository.findById(borrowingCreateDto.getEmployeeId());
-        if (book.isEmpty() || client.isEmpty() || employee.isEmpty()) {
-            throw new ResourceNotFoundException();
+        Book book = bookRepository.findById(borrowingCreateDto.getBookId())
+                .orElseThrow(ResourceNotFoundException::new);
+        Client client = clientRepository.findById(borrowingCreateDto.getClientId())
+                .orElseThrow(ResourceNotFoundException::new);
+        Employee employee = employeeRepository.findById(borrowingCreateDto.getEmployeeId())
+                .orElseThrow(ResourceNotFoundException::new);
+
+        if (!book.isAvailability()) {
+            throw new BookIsNotAvailableException();
         }
 
         Borrowing borrowing = new Borrowing();
         borrowing.setValidFrom(borrowingCreateDto.getValidFrom());
         borrowing.setValidTo(borrowingCreateDto.getValidTo());
         borrowing.setReturnDate(borrowingCreateDto.getReturnDate());
-        borrowing.setBook(book.get());
-        borrowing.setClient(client.get());
-        borrowing.setEmployee(employee.get());
+        borrowing.setBook(book);
+        borrowing.setClient(client);
+        borrowing.setEmployee(employee);
         Borrowing borrowingFromRepo = borrowingRepository.save(borrowing);
+        book.setAvailability(false);
         return BorrowingMapper.borrowingToBorrowingDto(borrowingFromRepo);
     }
 }

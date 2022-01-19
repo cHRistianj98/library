@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import pl.distributed.library.entity.Author;
-import pl.distributed.library.entity.AuthorAssignment;
-import pl.distributed.library.entity.Book;
+import pl.distributed.library.entity.*;
 import pl.distributed.library.repository.AuthorAssignmentRepository;
 import pl.distributed.library.repository.AuthorRepository;
 import pl.distributed.library.repository.BookRepository;
@@ -43,5 +41,10 @@ public class StartService {
 
         authorAssignmentRepository.save(new AuthorAssignment(author, book));
         logger.info("Author assignments were added!");
+
+        //Address address = new Address();
+
+        //Library library = new Library(1, );
+        logger.info("library was added!");
     }
 }

@@ -31,19 +31,19 @@ public class ClientService {
     @Transactional
     public ClientDto addClient(NewClientDto newClientDto) {
         Optional<Address> address = addressRepository.findByCityAndStreetAndNumberAndPostalCode(
-                newClientDto.getAddressDto().getCity(),
-                newClientDto.getAddressDto().getStreet(),
-                newClientDto.getAddressDto().getNumber(),
-                newClientDto.getAddressDto().getPostalCode());
+                newClientDto.getAddressCreateDto().getCity(),
+                newClientDto.getAddressCreateDto().getStreet(),
+                newClientDto.getAddressCreateDto().getNumber(),
+                newClientDto.getAddressCreateDto().getPostalCode());
 
         Client client = new Client();
 
         if (address.isEmpty()) {
             Address newAddress = new Address();
-            newAddress.setCity(newClientDto.getAddressDto().getCity());
-            newAddress.setStreet(newClientDto.getAddressDto().getStreet());
-            newAddress.setNumber(newClientDto.getAddressDto().getNumber());
-            newAddress.setPostalCode(newClientDto.getAddressDto().getPostalCode());
+            newAddress.setCity(newClientDto.getAddressCreateDto().getCity());
+            newAddress.setStreet(newClientDto.getAddressCreateDto().getStreet());
+            newAddress.setNumber(newClientDto.getAddressCreateDto().getNumber());
+            newAddress.setPostalCode(newClientDto.getAddressCreateDto().getPostalCode());
             addressRepository.save(newAddress);
             client.setAddress(newAddress);
         } else {

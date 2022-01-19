@@ -20,5 +20,5 @@ public class NewClientDto {
     private String email;
 
     @NotNull
-    private AddressDto addressDto;
+    private AddressCreateDto addressCreateDto;
 }
