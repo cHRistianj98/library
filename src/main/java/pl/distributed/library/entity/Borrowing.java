@@ -52,4 +52,14 @@ public class Borrowing {
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
+
+    public Borrowing(@NotNull LocalDate validFrom, @NotNull LocalDate validTo, LocalDate returnDate, Book book,
+                     Client client, Employee employee) {
+        this.validFrom = validFrom;
+        this.validTo = validTo;
+        this.returnDate = returnDate;
+        this.book = book;
+        this.client = client;
+        this.employee = employee;
+    }
 }

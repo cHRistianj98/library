@@ -83,6 +83,6 @@ public class EmployeeController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     public ResponseEntity<Long> deleteEmployee(@PathVariable Long id) {
-        return ResponseEntity.ok(employeeService.deleteLibrary(id));
+        return ResponseEntity.ok(employeeService.deleteEmployee(id));
     }
 }

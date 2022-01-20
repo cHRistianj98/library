@@ -73,4 +73,16 @@ public class AddressController {
         AddressDto addressDto = addressService.addAddress(addressCreateDto);
         return ResponseEntity.created(URI.create("/" + addressDto.getAddressId())).body(addressDto);
     }
+
+    @ApiOperation("delete address")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteAddress(@PathVariable Long id) {
+        return ResponseEntity.ok(addressService.deleteAddress(id));
+    }
 }

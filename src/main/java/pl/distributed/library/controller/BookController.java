@@ -8,10 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.Book;
-import pl.distributed.library.entity.Borrowing;
 import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.BookMapper;
-import pl.distributed.library.mapper.BorrowingMapper;
 import pl.distributed.library.service.BookService;
 
 import javax.validation.Valid;
@@ -58,6 +56,18 @@ public class BookController {
         return ResponseEntity.ok(bookService.findAll());
     }
 
+    @GetMapping("/clients/{clientId}")
+    @ApiOperation("Get books borrowed by client")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = BookDto.class)
+    })
+    public ResponseEntity<List<BookDto>> getBooksByClientId(@PathVariable Long clientId) {
+        return ResponseEntity.ok(bookService.findBooksByClientId(clientId));
+    }
+
     @ApiOperation("Add book")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
@@ -69,5 +79,17 @@ public class BookController {
     public ResponseEntity<BookDto> addBook(@RequestBody @Valid BookCreateDto bookCreateDto) {
         BookDto bookDto = bookService.addBook(bookCreateDto);
         return ResponseEntity.created(URI.create("/" + bookDto.getBookId())).body(bookDto);
+    }
+
+    @ApiOperation("delete book")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteBook(@PathVariable Long id) {
+        return ResponseEntity.ok(bookService.deleteBook(id));
     }
 }

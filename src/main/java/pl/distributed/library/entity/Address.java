@@ -42,8 +42,7 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private Library library;
 
-    public Address(Long addressId, @NotNull String city, @NotNull String street, @NotNull String number, @NotNull String postalCode) {
-        this.addressId = addressId;
+    public Address(@NotNull String city, @NotNull String street, @NotNull String number, @NotNull String postalCode) {
         this.city = city;
         this.street = street;
         this.number = number;

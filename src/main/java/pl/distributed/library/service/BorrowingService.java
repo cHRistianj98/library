@@ -1,6 +1,7 @@
 package pl.distributed.library.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.*;
@@ -72,5 +73,15 @@ public class BorrowingService {
         Borrowing borrowingFromRepo = borrowingRepository.save(borrowing);
         book.setAvailability(false);
         return BorrowingMapper.borrowingToBorrowingDto(borrowingFromRepo);
+    }
+
+    @Transactional
+    public Long deleteBorrowing(Long id) {
+        try {
+            borrowingRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ResourceNotFoundException();
+        }
+        return id;
     }
 }

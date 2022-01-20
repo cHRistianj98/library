@@ -1,6 +1,7 @@
 package pl.distributed.library.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.*;
@@ -59,5 +60,15 @@ public class AuthorAssignmentService {
         AuthorAssignment authorAssignmentFromRepo = authorAssignmentRepository.save(authorAssignment);
 
         return AuthorAssignmentMapper.authorAssignmentToAuthorAssignmentDto(authorAssignmentFromRepo);
+    }
+
+    @Transactional
+    public Long deleteAuthorAssignment(Long id) {
+        try {
+            authorAssignmentRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ResourceNotFoundException();
+        }
+        return id;
     }
 }

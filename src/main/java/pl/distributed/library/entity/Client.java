@@ -51,4 +51,14 @@ public class Client {
 
     @OneToMany(mappedBy = "client")
     private Set<Borrowing> borrowings;
+
+    public Client(@NotNull String forename, @NotNull String surname, @NotNull @Email String email,
+                  int debt, Address address, Set<Borrowing> borrowings) {
+        this.forename = forename;
+        this.surname = surname;
+        this.email = email;
+        this.debt = debt;
+        this.address = address;
+        this.borrowings = borrowings;
+    }
 }

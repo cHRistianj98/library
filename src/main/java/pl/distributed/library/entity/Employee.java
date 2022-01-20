@@ -51,4 +51,14 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     private Set<Borrowing> borrowings;
+
+    public Employee(@NotNull int salary, @NotNull String forename, @NotNull String surname,
+                    @NotNull @Email String email, Library library, Set<Borrowing> borrowings) {
+        this.salary = salary;
+        this.forename = forename;
+        this.surname = surname;
+        this.email = email;
+        this.library = library;
+        this.borrowings = borrowings;
+    }
 }

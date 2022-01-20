@@ -68,4 +68,16 @@ public class BorrowingController {
         BorrowingDto borrowingDto = borrowingService.addBorrowing(borrowingCreateDto);
         return ResponseEntity.created(URI.create("/" + borrowingDto.getBorrowingId())).body(borrowingDto);
     }
+
+    @ApiOperation("delete borrowing")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteBorrowing(@PathVariable Long id) {
+        return ResponseEntity.ok(borrowingService.deleteBorrowing(id));
+    }
 }

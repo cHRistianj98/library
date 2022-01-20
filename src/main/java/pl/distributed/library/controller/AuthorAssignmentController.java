@@ -72,4 +72,16 @@ public class AuthorAssignmentController {
         return ResponseEntity.created(
                 URI.create("/" + authorAssignmentDto.getAuthorAssignmentId())).body(authorAssignmentDto);
     }
+
+    @ApiOperation("delete author assignment")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteAuthorAssignment(@PathVariable Long id) {
+        return ResponseEntity.ok(authorAssignmentService.deleteAuthorAssignment(id));
+    }
 }

@@ -1,12 +1,14 @@
 package pl.distributed.library.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.AuthorAssignment;
 import pl.distributed.library.entity.Client;
+import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.AuthorAssignmentMapper;
 import pl.distributed.library.mapper.ClientMapper;
@@ -45,5 +47,15 @@ public class AddressService {
         address.setCity(addressCreateDto.getCity());
         Address addressFromRepo = addressRepository.save(address);
         return AddressMapper.addressToAddressDto(addressFromRepo);
+    }
+
+    @Transactional
+    public Long deleteAddress(Long id) {
+        try {
+            addressRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new ResourceNotFoundException();
+        }
+        return id;
     }
 }

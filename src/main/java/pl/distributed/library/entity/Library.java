@@ -35,8 +35,7 @@ public class Library {
     @OneToMany(mappedBy = "library")
     private Set<Employee> employees = new HashSet<>();
 
-    public Library(Long libraryId, Address address) {
-        this.libraryId = libraryId;
+    public Library(Address address) {
         this.address = address;
     }
 }
