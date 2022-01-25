@@ -8,11 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.Address;
-import pl.distributed.library.entity.AuthorAssignment;
 import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.AddressMapper;
-import pl.distributed.library.mapper.AuthorAssignmentMapper;
-import pl.distributed.library.repository.AddressRepository;
 import pl.distributed.library.service.AddressService;
 
 import javax.validation.Valid;

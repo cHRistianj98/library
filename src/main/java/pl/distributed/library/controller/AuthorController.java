@@ -5,14 +5,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.distributed.library.dto.AddressDto;
 import pl.distributed.library.dto.AuthorCreateDto;
 import pl.distributed.library.dto.AuthorDto;
-import pl.distributed.library.dto.BookDto;
-import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.Author;
 import pl.distributed.library.exception.ResourceNotFoundException;
-import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.AuthorMapper;
 import pl.distributed.library.service.AuthorService;
 

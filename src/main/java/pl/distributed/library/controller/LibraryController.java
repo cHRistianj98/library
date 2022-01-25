@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.distributed.library.dto.AddressCreateDto;
-import pl.distributed.library.dto.AddressDto;
 import pl.distributed.library.dto.LibraryCreateDto;
 import pl.distributed.library.dto.LibraryDto;
 import pl.distributed.library.entity.Library;
@@ -16,7 +15,6 @@ import pl.distributed.library.mapper.LibraryMapper;
 import pl.distributed.library.service.LibraryService;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
