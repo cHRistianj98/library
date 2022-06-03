@@ -17,8 +17,8 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id")
-    private Long addressId;
+    @Column(name = "id")
+    private Long id;
 
     @NotNull
     @Column(name = "city", nullable = false)
@@ -37,7 +37,7 @@ public class Address {
     private String postalCode;
 
     @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
-    private Set<Client> clients;
+    private Set<Customer> customers;
 
     @OneToOne(mappedBy = "address")
     private Library library;

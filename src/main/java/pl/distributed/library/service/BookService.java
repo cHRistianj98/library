@@ -1,6 +1,5 @@
 package pl.distributed.library.service;
 
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -8,9 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.*;
 import pl.distributed.library.exception.ResourceNotFoundException;
-import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.BookMapper;
-import pl.distributed.library.mapper.BorrowingMapper;
 import pl.distributed.library.repository.AuthorAssignmentRepository;
 import pl.distributed.library.repository.AuthorRepository;
 import pl.distributed.library.repository.BookRepository;
@@ -18,7 +15,6 @@ import pl.distributed.library.repository.BorrowingRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -53,7 +49,7 @@ public class BookService {
         List<Borrowing> borrowings = borrowingRepository.findAll();
 
         return borrowings.stream()
-                .filter(borrowing -> borrowing.getClient().getClientId().equals(clientId))
+                .filter(borrowing -> borrowing.getCustomer().getId().equals(clientId))
                 .map(Borrowing::getBook)
                 .map(BookMapper::bookToBookDto)
                 .collect(Collectors.toList());
@@ -69,7 +65,7 @@ public class BookService {
         Book bookFromRepo = bookRepository.save(book);
 
         List<Long> authorIds = createAuthors(bookCreateDto.getAuthors());
-        createAuthorAssignment(bookFromRepo.getBookId(), authorIds);
+        createAuthorAssignment(bookFromRepo.getId(), authorIds);
 
         return BookMapper.bookToBookDto(bookFromRepo);
     }
@@ -95,9 +91,9 @@ public class BookService {
                 newAuthor.setForename(createDto.getForename());
                 newAuthor.setSurname(createDto.getSurname());
                 Author authorFromRepo = authorRepository.save(newAuthor);
-                authorIds.add(authorFromRepo.getAuthorId());
+                authorIds.add(authorFromRepo.getId());
             } else {
-                authorIds.add(author.get().getAuthorId());
+                authorIds.add(author.get().getId());
             }
         }
         return authorIds;

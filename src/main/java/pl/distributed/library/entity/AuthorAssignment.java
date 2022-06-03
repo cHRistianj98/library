@@ -21,8 +21,8 @@ import javax.persistence.Table;
 public class AuthorAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "author_assignment_id")
-    private Long authorAssignmentId;
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)

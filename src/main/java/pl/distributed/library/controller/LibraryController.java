@@ -71,7 +71,7 @@ public class LibraryController {
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation("delete library")
+    @ApiOperation("Delete library")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),

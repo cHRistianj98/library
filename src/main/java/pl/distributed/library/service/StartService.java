@@ -19,23 +19,21 @@ public class StartService {
     private final BookRepository bookRepository;
     private final AddressRepository addressRepository;
     private final LibraryRepository libraryRepository;
-    private final ClientRepository clientRepository;
+    private final CustomerRepository customerRepository;
     private final BorrowingRepository borrowingRepository;
-    private final EmployeeRepository employeeRepository;
 
     @Autowired
     public StartService(AuthorRepository authorRepository, AuthorAssignmentRepository authorAssignmentRepository,
                         BookRepository bookRepository, AddressRepository addressRepository,
-                        LibraryRepository libraryRepository, ClientRepository clientRepository,
-                        BorrowingRepository borrowingRepository, EmployeeRepository employeeRepository) {
+                        LibraryRepository libraryRepository, CustomerRepository customerRepository,
+                        BorrowingRepository borrowingRepository) {
         this.authorRepository = authorRepository;
         this.authorAssignmentRepository = authorAssignmentRepository;
         this.bookRepository = bookRepository;
         this.addressRepository = addressRepository;
         this.libraryRepository = libraryRepository;
-        this.clientRepository = clientRepository;
+        this.customerRepository = customerRepository;
         this.borrowingRepository = borrowingRepository;
-        this.employeeRepository = employeeRepository;
     }
 
     @EventListener(ApplicationReadyEvent.class)

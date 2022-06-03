@@ -18,7 +18,7 @@ public class AuthorAssignmentMapper {
 
     public static AuthorAssignmentDto authorAssignmentToAuthorAssignmentDto(AuthorAssignment authorAssignment) {
         AuthorAssignmentDto authorAssignmentDto = new AuthorAssignmentDto();
-        authorAssignmentDto.setAuthorAssignmentId(authorAssignment.getAuthorAssignmentId());
+        authorAssignmentDto.setAuthorAssignmentId(authorAssignment.getId());
         authorAssignmentDto.setAuthor(AuthorMapper.authorToAuthorDto(authorAssignment.getAuthor()));
         authorAssignmentDto.setBook(BookMapper.bookToBookDto(authorAssignment.getBook()));
         return authorAssignmentDto;

@@ -16,8 +16,8 @@ import java.util.Set;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "author_id")
-    private Long authorId;
+    @Column(name = "id")
+    private Long id;
 
     @NotNull
     @Column(name = "forename", nullable = false)

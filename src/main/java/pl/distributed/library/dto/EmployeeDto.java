@@ -24,5 +24,4 @@ public class EmployeeDto {
     @NotNull
     @Email
     private String email;
-
 }

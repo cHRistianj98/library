@@ -22,12 +22,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "client")
-public class Client {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "client_id")
-    private Long clientId;
+    @Column(name = "id")
+    private Long id;
 
     @NotNull
     @Column(name = "forename", nullable = false)
@@ -42,22 +42,18 @@ public class Client {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "debt")
-    private int debt;
-
     @ManyToOne
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "customer")
     private Set<Borrowing> borrowings;
 
-    public Client(@NotNull String forename, @NotNull String surname, @NotNull @Email String email,
-                  int debt, Address address, Set<Borrowing> borrowings) {
+    public Customer(@NotNull String forename, @NotNull String surname, @NotNull @Email String email,
+                    Address address, Set<Borrowing> borrowings) {
         this.forename = forename;
         this.surname = surname;
         this.email = email;
-        this.debt = debt;
         this.address = address;
         this.borrowings = borrowings;
     }

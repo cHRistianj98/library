@@ -6,12 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.Address;
-import pl.distributed.library.entity.AuthorAssignment;
-import pl.distributed.library.entity.Client;
 import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.AddressMapper;
-import pl.distributed.library.mapper.AuthorAssignmentMapper;
-import pl.distributed.library.mapper.ClientMapper;
 import pl.distributed.library.repository.AddressRepository;
 
 import java.util.List;
@@ -20,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AddressService {
-    private AddressRepository addressRepository;
+    private final AddressRepository addressRepository;
 
     @Autowired
     public AddressService(AddressRepository addressRepository) {

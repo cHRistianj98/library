@@ -1,6 +1,5 @@
 package pl.distributed.library.mapper;
 
-import pl.distributed.library.dto.ClientDto;
 import pl.distributed.library.dto.LibraryCreateDto;
 import pl.distributed.library.dto.LibraryDto;
 import pl.distributed.library.entity.Library;
@@ -17,16 +16,14 @@ public class LibraryMapper {
 
     public static LibraryDto libraryToLibraryDto(Library library) {
         LibraryDto libraryDto = new LibraryDto();
-        libraryDto.setId(library.getLibraryId());
+        libraryDto.setId(library.getId());
         libraryDto.setAddressDto(AddressMapper.addressToAddressDto(library.getAddress()));
-        libraryDto.setEmployees(EmployeeMapper.employeeSetToEmployeeDtoSet(library.getEmployees()));
         return libraryDto;
     }
 
     public static LibraryCreateDto libraryToLibraryCreateDto(Library library) {
         LibraryCreateDto libraryCreateDto = new LibraryCreateDto();
         libraryCreateDto.setAddressCreateDto(AddressMapper.addressToAddressCreateDto(library.getAddress()));
-        libraryCreateDto.setEmployees(EmployeeMapper.employeeSetToEmployeeDtoSet(library.getEmployees()));
         return libraryCreateDto;
     }
 }

@@ -24,8 +24,8 @@ import java.time.LocalDate;
 public class Borrowing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "borrowing_id")
-    private Long borrowingId;
+    @Column(name = "id")
+    private Long id;
 
     @NotNull
     @Column(name = "valid_from")
@@ -46,20 +46,15 @@ public class Borrowing {
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false)
-    private Client client;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
     public Borrowing(@NotNull LocalDate validFrom, @NotNull LocalDate validTo, LocalDate returnDate, Book book,
-                     Client client, Employee employee) {
+                     Customer customer) {
         this.validFrom = validFrom;
         this.validTo = validTo;
         this.returnDate = returnDate;
         this.book = book;
-        this.client = client;
-        this.employee = employee;
+        this.customer = customer;
     }
 }

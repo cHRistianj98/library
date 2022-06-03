@@ -14,6 +14,4 @@ public class LibraryDto {
 
     @NotNull
     private AddressDto addressDto;
-
-    private Set<EmployeeDto> employees;
 }

@@ -25,15 +25,12 @@ import java.util.Set;
 public class Library {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "library_id")
-    private Long libraryId;
+    @Column(name = "id")
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
-
-    @OneToMany(mappedBy = "library")
-    private Set<Employee> employees = new HashSet<>();
 
     public Library(Address address) {
         this.address = address;

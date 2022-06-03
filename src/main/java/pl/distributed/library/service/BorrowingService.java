@@ -7,15 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.*;
 import pl.distributed.library.exception.BookIsNotAvailableException;
-import pl.distributed.library.exception.LibraryNotFoundException;
 import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.BorrowingMapper;
-import pl.distributed.library.mapper.ClientMapper;
-import pl.distributed.library.mapper.EmployeeMapper;
 import pl.distributed.library.repository.BookRepository;
 import pl.distributed.library.repository.BorrowingRepository;
-import pl.distributed.library.repository.ClientRepository;
-import pl.distributed.library.repository.EmployeeRepository;
+import pl.distributed.library.repository.CustomerRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,18 +21,15 @@ import java.util.stream.Collectors;
 public class BorrowingService {
     private BorrowingRepository borrowingRepository;
     private BookRepository bookRepository;
-    private ClientRepository clientRepository;
-    private EmployeeRepository employeeRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
     public BorrowingService(BorrowingRepository borrowingRepository,
                             BookRepository bookRepository,
-                            ClientRepository clientRepository,
-                            EmployeeRepository employeeRepository) {
+                            CustomerRepository customerRepository) {
         this.borrowingRepository = borrowingRepository;
         this.bookRepository = bookRepository;
-        this.clientRepository = clientRepository;
-        this.employeeRepository = employeeRepository;
+        this.customerRepository = customerRepository;
     }
 
     public Optional<Borrowing> findById(Long id) {
@@ -54,9 +47,7 @@ public class BorrowingService {
     public BorrowingDto addBorrowing(BorrowingCreateDto borrowingCreateDto) {
         Book book = bookRepository.findById(borrowingCreateDto.getBookId())
                 .orElseThrow(ResourceNotFoundException::new);
-        Client client = clientRepository.findById(borrowingCreateDto.getClientId())
-                .orElseThrow(ResourceNotFoundException::new);
-        Employee employee = employeeRepository.findById(borrowingCreateDto.getEmployeeId())
+        Customer customer = customerRepository.findById(borrowingCreateDto.getClientId())
                 .orElseThrow(ResourceNotFoundException::new);
 
         if (!book.isAvailability()) {
@@ -68,8 +59,7 @@ public class BorrowingService {
         borrowing.setValidTo(borrowingCreateDto.getValidTo());
         borrowing.setReturnDate(borrowingCreateDto.getReturnDate());
         borrowing.setBook(book);
-        borrowing.setClient(client);
-        borrowing.setEmployee(employee);
+        borrowing.setCustomer(customer);
         Borrowing borrowingFromRepo = borrowingRepository.save(borrowing);
         book.setAvailability(false);
         return BorrowingMapper.borrowingToBorrowingDto(borrowingFromRepo);

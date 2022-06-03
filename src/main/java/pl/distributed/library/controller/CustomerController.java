@@ -6,70 +6,70 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.distributed.library.dto.ClientDto;
-import pl.distributed.library.dto.NewClientDto;
-import pl.distributed.library.entity.Client;
+import pl.distributed.library.dto.CustomerDto;
+import pl.distributed.library.dto.NewCustomerDto;
+import pl.distributed.library.entity.Customer;
 import pl.distributed.library.exception.ResourceNotFoundException;
-import pl.distributed.library.mapper.ClientMapper;
-import pl.distributed.library.service.ClientService;
+import pl.distributed.library.mapper.CustomerMapper;
+import pl.distributed.library.service.CustomerService;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/clients")
-public class ClientController {
-    private final ClientService clientService;
+@RequestMapping("/customers")
+public class CustomerController {
+    private final CustomerService customerService;
 
     @Autowired
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
-    @ApiOperation("Get client")
+    @ApiOperation("Get customer")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = ClientDto.class)
+            @ApiResponse(code = 200, message = "Successful deleted", response = CustomerDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<ClientDto> getLibrary(@PathVariable Long id) {
-        Optional<Client> client = clientService.findById(id);
+    public ResponseEntity<CustomerDto> getLibrary(@PathVariable Long id) {
+        Optional<Customer> client = customerService.findById(id);
         if (client.isEmpty()) {
             throw new ResourceNotFoundException();
         } else {
-            return ResponseEntity.ok(ClientMapper.clientToClientDto(client.get()));
+            return ResponseEntity.ok(CustomerMapper.clientToClientDto(client.get()));
         }
     }
 
-    @ApiOperation("Get clients")
+    @ApiOperation("Get customers")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = ClientDto.class)
+            @ApiResponse(code = 200, message = "Successful deleted", response = CustomerDto.class)
     })
     @GetMapping
-    public ResponseEntity<List<ClientDto>> getLibraries() {
-        return ResponseEntity.ok(clientService.findAll());
+    public ResponseEntity<List<CustomerDto>> getLibraries() {
+        return ResponseEntity.ok(customerService.findAll());
     }
 
-    @ApiOperation("Add client")
+    @ApiOperation("Add customer")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = ClientDto.class)
+            @ApiResponse(code = 200, message = "Successful deleted", response = CustomerDto.class)
     })
     @PostMapping
-    public ResponseEntity<ClientDto> addClient(@RequestBody NewClientDto newClientDto) {
-        ClientDto clientDto = clientService.addClient(newClientDto);
-        return ResponseEntity.created(URI.create("/" + clientDto.getClientId())).body(clientDto);
+    public ResponseEntity<CustomerDto> addClient(@RequestBody NewCustomerDto newCustomerDto) {
+        CustomerDto customerDto = customerService.addCustomer(newCustomerDto);
+        return ResponseEntity.created(URI.create("/" + customerDto.getClientId())).body(customerDto);
     }
 
-    @ApiOperation("delete client")
+    @ApiOperation("Delete customer")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
@@ -78,6 +78,6 @@ public class ClientController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteClient(@PathVariable Long id) {
-        return ResponseEntity.ok(clientService.deleteClient(id));
+        return ResponseEntity.ok(customerService.deleteClient(id));
     }
 }

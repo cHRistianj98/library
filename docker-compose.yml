@@ -7,6 +7,7 @@ networks:
 
 services:
   library-backend:
+    image: 'library:latest'
     build:
       context: .
     container_name: library-backend
@@ -29,7 +30,7 @@ services:
     networks:
       - app-tier
     ports:
-      - '5432:5432'
+      - '5433:5432'
     restart: always
     environment:
       - POSTGRESQL_REPLICATION_MODE=master
@@ -38,8 +39,8 @@ services:
       - POSTGRESQL_USERNAME=library
       - POSTGRESQL_PASSWORD=zaq12wsx
       - POSTGRESQL_DATABASE=library
-#      - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
-#      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=2
+      - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
+      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=2
 
   postgresql-slave:
     image: 'bitnami/postgresql:11'
@@ -48,7 +49,7 @@ services:
       - app-tier
     restart: always
     ports:
-      - '5433:5432'
+      - '5434:5432'
     depends_on:
       - postgresql-master
     environment:
@@ -67,7 +68,7 @@ services:
     networks:
       - app-tier
     ports:
-      - '5434:5432'
+      - '5435:5432'
     depends_on:
       - postgresql-master
     environment:

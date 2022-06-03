@@ -20,7 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/books")
 public class BookController {
-    private BookService bookService;
+    private final BookService bookService;
 
     @Autowired
     public BookController(BookService bookService) {
@@ -78,10 +78,10 @@ public class BookController {
     @PostMapping
     public ResponseEntity<BookDto> addBook(@RequestBody @Valid BookCreateDto bookCreateDto) {
         BookDto bookDto = bookService.addBook(bookCreateDto);
-        return ResponseEntity.created(URI.create("/" + bookDto.getBookId())).body(bookDto);
+        return ResponseEntity.created(URI.create("/" + bookDto.getId())).body(bookDto);
     }
 
-    @ApiOperation("delete book")
+    @ApiOperation("Delete book")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),

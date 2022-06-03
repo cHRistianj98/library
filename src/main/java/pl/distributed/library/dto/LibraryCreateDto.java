@@ -11,6 +11,4 @@ import java.util.Set;
 public class LibraryCreateDto {
     @NotNull
     private AddressCreateDto addressCreateDto;
-
-    private Set<EmployeeDto> employees;
 }

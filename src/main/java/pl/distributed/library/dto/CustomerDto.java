@@ -5,12 +5,13 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class EmployeeCreateDto {
+public class CustomerDto {
     @NotNull
-    private int salary;
+    private Long clientId;
 
     @NotNull
     private String forename;
@@ -22,6 +23,5 @@ public class EmployeeCreateDto {
     @Email
     private String email;
 
-    @NotNull
-    private Long libraryId;
+    private int debt;
 }

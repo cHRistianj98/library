@@ -32,7 +32,7 @@ public class BorrowingController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = EmployeeDto.class)
+            @ApiResponse(code = 200, message = "Successful deleted", response = BorrowingDto.class)
     })
     @GetMapping("/{id}")
     public ResponseEntity<BorrowingDto> getBorrowing(@PathVariable Long id) {
@@ -50,7 +50,7 @@ public class BorrowingController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = EmployeeDto.class)
+            @ApiResponse(code = 200, message = "Successful deleted", response = BorrowingDto.class)
     })
     public ResponseEntity<List<BorrowingDto>> getBorrowings() {
         return ResponseEntity.ok(borrowingService.findAll());
@@ -69,7 +69,7 @@ public class BorrowingController {
         return ResponseEntity.created(URI.create("/" + borrowingDto.getBorrowingId())).body(borrowingDto);
     }
 
-    @ApiOperation("delete borrowing")
+    @ApiOperation("Delete borrowing")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),

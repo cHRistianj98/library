@@ -57,7 +57,7 @@ public class AuthorAssignmentController {
         return ResponseEntity.ok(authorAssignmentService.findAll());
     }
 
-    @ApiOperation("add author assignment")
+    @ApiOperation("Add author assignment")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
@@ -73,7 +73,7 @@ public class AuthorAssignmentController {
                 URI.create("/" + authorAssignmentDto.getAuthorAssignmentId())).body(authorAssignmentDto);
     }
 
-    @ApiOperation("delete author assignment")
+    @ApiOperation("Delete author assignment")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),

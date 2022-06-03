@@ -22,8 +22,8 @@ import java.util.Set;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_id")
-    private Long bookId;
+    @Column(name = "id")
+    private Long id;
 
     @NotNull
     @Column(name = "title")

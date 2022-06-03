@@ -71,7 +71,7 @@ public class AddressController {
         return ResponseEntity.created(URI.create("/" + addressDto.getAddressId())).body(addressDto);
     }
 
-    @ApiOperation("delete address")
+    @ApiOperation("Delete address")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
