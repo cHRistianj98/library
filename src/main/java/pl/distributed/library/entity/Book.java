@@ -26,15 +26,15 @@ public class Book {
     private Long id;
 
     @NotNull
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
     @NotNull
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
     @NotNull
-    @Column(name = "release_year")
+    @Column(name = "release_year", nullable = false)
     private int releaseYear;
 
     @Column(name = "availability")

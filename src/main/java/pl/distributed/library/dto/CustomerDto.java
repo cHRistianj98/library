@@ -11,7 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class CustomerDto {
     @NotNull
-    private Long clientId;
+    private Long id;
 
     @NotNull
     private String forename;

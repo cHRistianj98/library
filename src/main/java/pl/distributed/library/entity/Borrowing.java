@@ -49,12 +49,17 @@ public class Borrowing {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "library_id", nullable = false)
+    private Library library;
+
     public Borrowing(@NotNull LocalDate validFrom, @NotNull LocalDate validTo, LocalDate returnDate, Book book,
-                     Customer customer) {
+                     Customer customer, Library library) {
         this.validFrom = validFrom;
         this.validTo = validTo;
         this.returnDate = returnDate;
         this.book = book;
         this.customer = customer;
+        this.library = library;
     }
 }

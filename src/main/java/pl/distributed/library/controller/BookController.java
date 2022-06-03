@@ -56,16 +56,16 @@ public class BookController {
         return ResponseEntity.ok(bookService.findAll());
     }
 
-    @GetMapping("/clients/{clientId}")
-    @ApiOperation("Get books borrowed by client")
+    @GetMapping("/customers/{id}")
+    @ApiOperation("Get books borrowed by customer")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
             @ApiResponse(code = 200, message = "Successful deleted", response = BookDto.class)
     })
-    public ResponseEntity<List<BookDto>> getBooksByClientId(@PathVariable Long clientId) {
-        return ResponseEntity.ok(bookService.findBooksByClientId(clientId));
+    public ResponseEntity<List<BookDto>> getBooksByCustomerId(@PathVariable Long id) {
+        return ResponseEntity.ok(bookService.findBooksByCustomerId(id));
     }
 
     @ApiOperation("Add book")

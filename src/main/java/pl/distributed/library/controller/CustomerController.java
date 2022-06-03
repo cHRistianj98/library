@@ -36,11 +36,11 @@ public class CustomerController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<CustomerDto> getLibrary(@PathVariable Long id) {
-        Optional<Customer> client = customerService.findById(id);
-        if (client.isEmpty()) {
+        Optional<Customer> customer = customerService.findById(id);
+        if (customer.isEmpty()) {
             throw new ResourceNotFoundException();
         } else {
-            return ResponseEntity.ok(CustomerMapper.clientToClientDto(client.get()));
+            return ResponseEntity.ok(CustomerMapper.customerToCustomerDto(customer.get()));
         }
     }
 
@@ -64,9 +64,9 @@ public class CustomerController {
             @ApiResponse(code = 200, message = "Successful deleted", response = CustomerDto.class)
     })
     @PostMapping
-    public ResponseEntity<CustomerDto> addClient(@RequestBody NewCustomerDto newCustomerDto) {
+    public ResponseEntity<CustomerDto> addCustomer(@RequestBody NewCustomerDto newCustomerDto) {
         CustomerDto customerDto = customerService.addCustomer(newCustomerDto);
-        return ResponseEntity.created(URI.create("/" + customerDto.getClientId())).body(customerDto);
+        return ResponseEntity.created(URI.create("/" + customerDto.getId())).body(customerDto);
     }
 
     @ApiOperation("Delete customer")
@@ -77,7 +77,7 @@ public class CustomerController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteClient(@PathVariable Long id) {
-        return ResponseEntity.ok(customerService.deleteClient(id));
+    public ResponseEntity<Long> deleteCustomer(@PathVariable Long id) {
+        return ResponseEntity.ok(customerService.deleteCustomer(id));
     }
 }

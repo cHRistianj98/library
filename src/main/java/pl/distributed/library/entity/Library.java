@@ -32,6 +32,9 @@ public class Library {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @OneToMany(mappedBy = "library")
+    private Set<Borrowing> borrowings;
+
     public Library(Address address) {
         this.address = address;
     }

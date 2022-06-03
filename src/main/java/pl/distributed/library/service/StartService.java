@@ -52,9 +52,9 @@ public class StartService {
         logger.info("Author assignments were added!");
 
         Address libraryAddress = new Address("Wrocław", "Jana Pawła 2", "1", "52-222");
-        Address clientAddress = new Address("Wrocław", "Dworcowa", "2", "53-541");
+        Address customerAddress = new Address("Wrocław", "Dworcowa", "2", "53-541");
         addressRepository.save(libraryAddress);
-        addressRepository.save(clientAddress);
+        addressRepository.save(customerAddress);
         logger.info("Address were added!");
 //
 //        Library library = new Library(libraryAddress);

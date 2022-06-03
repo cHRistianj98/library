@@ -45,11 +45,11 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public List<BookDto> findBooksByClientId(Long clientId) {
+    public List<BookDto> findBooksByCustomerId(Long id) {
         List<Borrowing> borrowings = borrowingRepository.findAll();
 
         return borrowings.stream()
-                .filter(borrowing -> borrowing.getCustomer().getId().equals(clientId))
+                .filter(borrowing -> borrowing.getCustomer().getId().equals(id))
                 .map(Borrowing::getBook)
                 .map(BookMapper::bookToBookDto)
                 .collect(Collectors.toList());

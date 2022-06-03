@@ -53,7 +53,7 @@ public class CustomerService {
         customer.setSurname(newCustomerDto.getSurname());
         customer.setEmail(newCustomerDto.getEmail());
         customerRepository.save(customer);
-        return CustomerMapper.clientToClientDto(customer);
+        return CustomerMapper.customerToCustomerDto(customer);
     }
 
     public Optional<Customer> findById(Long id) {
@@ -63,11 +63,11 @@ public class CustomerService {
     public List<CustomerDto> findAll() {
         List<Customer> customers = customerRepository.findAll();
         return customers.stream()
-                .map(CustomerMapper::clientToClientDto)
+                .map(CustomerMapper::customerToCustomerDto)
                 .collect(Collectors.toList());
     }
 
-    public Long deleteClient(Long id) {
+    public Long deleteCustomer(Long id) {
         try {
             customerRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {

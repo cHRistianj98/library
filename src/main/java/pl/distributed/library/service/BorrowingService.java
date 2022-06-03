@@ -47,7 +47,7 @@ public class BorrowingService {
     public BorrowingDto addBorrowing(BorrowingCreateDto borrowingCreateDto) {
         Book book = bookRepository.findById(borrowingCreateDto.getBookId())
                 .orElseThrow(ResourceNotFoundException::new);
-        Customer customer = customerRepository.findById(borrowingCreateDto.getClientId())
+        Customer customer = customerRepository.findById(borrowingCreateDto.getId())
                 .orElseThrow(ResourceNotFoundException::new);
 
         if (!book.isAvailability()) {
