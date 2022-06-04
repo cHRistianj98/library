@@ -34,7 +34,7 @@ public class BookService {
         this.borrowingRepository = borrowingRepository;
     }
 
-    public Optional<Book> findById(Long id) {
+    public Optional<Book> findById(String id) {
         return bookRepository.findById(id);
     }
 
@@ -45,7 +45,7 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public List<BookDto> findBooksByCustomerId(Long id) {
+    public List<BookDto> findBooksByCustomerId(String id) {
         List<Borrowing> borrowings = borrowingRepository.findAll();
 
         return borrowings.stream()
@@ -64,14 +64,14 @@ public class BookService {
         book.setReleaseYear(bookCreateDto.getReleaseYear());
         Book bookFromRepo = bookRepository.save(book);
 
-        List<Long> authorIds = createAuthors(bookCreateDto.getAuthors());
+        List<String> authorIds = createAuthors(bookCreateDto.getAuthors());
         createAuthorAssignment(bookFromRepo.getId(), authorIds);
 
         return BookMapper.bookToBookDto(bookFromRepo);
     }
 
     @Transactional
-    public Long deleteBook(Long id) {
+    public String deleteBook(String id) {
         try {
             bookRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
@@ -80,8 +80,8 @@ public class BookService {
         return id;
     }
 
-    private List<Long> createAuthors(List<AuthorCreateDto> authorCreateDto) {
-        List<Long> authorIds = new ArrayList<>();
+    private List<String> createAuthors(List<AuthorCreateDto> authorCreateDto) {
+        List<String> authorIds = new ArrayList<>();
         for (AuthorCreateDto createDto : authorCreateDto) {
             Optional<Author> author = authorRepository.findByForenameAndSurname(
                     createDto.getForename(),
@@ -99,7 +99,7 @@ public class BookService {
         return authorIds;
     }
 
-    private void createAuthorAssignment(Long bookId, List<Long> authorIds) {
+    private void createAuthorAssignment(String bookId, List<String> authorIds) {
         Optional<Book> book = bookRepository.findById(bookId);
         if (book.isEmpty()) {
             throw new ResourceNotFoundException();

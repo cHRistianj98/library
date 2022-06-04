@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 public class AuthorAssignmentCreateDto {
 
     @NotNull
-    private Long bookId;
+    private String id;
 
     @NotNull
-    private Long authorId;
+    private String authorId;
 }

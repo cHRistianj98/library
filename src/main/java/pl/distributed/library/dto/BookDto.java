@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class BookDto {
     @NotNull
-    private Long id;
+    private String id;
 
     @NotNull
     private String title;

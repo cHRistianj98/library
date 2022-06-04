@@ -77,7 +77,7 @@ public class CustomerController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCustomer(@PathVariable String id) {
         return ResponseEntity.ok(customerService.deleteCustomer(id));
     }
 }

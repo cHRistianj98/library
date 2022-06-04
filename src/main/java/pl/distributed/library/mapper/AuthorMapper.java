@@ -17,7 +17,7 @@ public class AuthorMapper {
         AuthorDto authorDto = new AuthorDto();
         authorDto.setForename(author.getForename());
         authorDto.setSurname(author.getSurname());
-        authorDto.setAuthorId(author.getId());
+        authorDto.setId(author.getId());
         return authorDto;
     }
 }

@@ -20,7 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
-    private AddressService addressService;
+    private final AddressService addressService;
 
     @Autowired
     public AddressController(AddressService addressService) {
@@ -35,7 +35,7 @@ public class AddressController {
             @ApiResponse(code = 200, message = "Successful deleted", response = AddressDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<AddressDto> getAddress(@PathVariable Long id) {
+    public ResponseEntity<AddressDto> getAddress(@PathVariable String id) {
         Optional<Address> address = addressService.findById(id);
         if (address.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -68,7 +68,7 @@ public class AddressController {
     @PostMapping
     public ResponseEntity<AddressDto> addAddress(@RequestBody @Valid AddressCreateDto addressCreateDto) {
         AddressDto addressDto = addressService.addAddress(addressCreateDto);
-        return ResponseEntity.created(URI.create("/" + addressDto.getAddressId())).body(addressDto);
+        return ResponseEntity.created(URI.create("/" + addressDto.getId())).body(addressDto);
     }
 
     @ApiOperation("Delete address")
@@ -79,7 +79,7 @@ public class AddressController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteAddress(@PathVariable Long id) {
+    public ResponseEntity<String> deleteAddress(@PathVariable String id) {
         return ResponseEntity.ok(addressService.deleteAddress(id));
     }
 }

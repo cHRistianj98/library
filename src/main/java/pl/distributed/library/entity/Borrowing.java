@@ -1,9 +1,11 @@
 package pl.distributed.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,41 +18,22 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
+@Document("borrowing")
 @NoArgsConstructor
-@Entity
-@Table(name = "borrowing")
 public class Borrowing {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
+    private String id;
     @NotNull
-    @Column(name = "valid_from")
     @JsonFormat
     private LocalDate validFrom;
-
     @NotNull
-    @Column(name = "valid_to")
     @JsonFormat
     private LocalDate validTo;
-
-    @Column(name = "return_date")
     @JsonFormat
     private LocalDate returnDate;
-
-    @ManyToOne
-    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-
-    @ManyToOne
-    @JoinColumn(name = "library_id", nullable = false)
     private Library library;
 
     public Borrowing(@NotNull LocalDate validFrom, @NotNull LocalDate validTo, LocalDate returnDate, Book book,

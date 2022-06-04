@@ -35,7 +35,7 @@ public class BookController {
             @ApiResponse(code = 200, message = "Successful deleted", response = BookDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<BookDto> getBook(@PathVariable Long id) {
+    public ResponseEntity<BookDto> getBook(@PathVariable String id) {
         Optional<Book> book = bookService.findById(id);
         if (book.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -64,7 +64,7 @@ public class BookController {
             @ApiResponse(code = 404, message = "Service not found"),
             @ApiResponse(code = 200, message = "Successful deleted", response = BookDto.class)
     })
-    public ResponseEntity<List<BookDto>> getBooksByCustomerId(@PathVariable Long id) {
+    public ResponseEntity<List<BookDto>> getBooksByCustomerId(@PathVariable String id) {
         return ResponseEntity.ok(bookService.findBooksByCustomerId(id));
     }
 
@@ -89,7 +89,7 @@ public class BookController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteBook(@PathVariable Long id) {
+    public ResponseEntity<String> deleteBook(@PathVariable String id) {
         return ResponseEntity.ok(bookService.deleteBook(id));
     }
 }

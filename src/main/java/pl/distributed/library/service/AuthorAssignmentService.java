@@ -7,10 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.*;
 import pl.distributed.library.exception.ResourceNotFoundException;
-import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.AuthorAssignmentMapper;
-import pl.distributed.library.mapper.AuthorMapper;
-import pl.distributed.library.mapper.BookMapper;
 import pl.distributed.library.repository.AuthorAssignmentRepository;
 import pl.distributed.library.repository.AuthorRepository;
 import pl.distributed.library.repository.BookRepository;
@@ -21,9 +18,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthorAssignmentService {
-    private AuthorAssignmentRepository authorAssignmentRepository;
-    private BookRepository bookRepository;
-    private AuthorRepository authorRepository;
+    private final AuthorAssignmentRepository authorAssignmentRepository;
+    private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
 
     @Autowired
     public AuthorAssignmentService(AuthorAssignmentRepository authorAssignmentRepository,
@@ -34,7 +31,7 @@ public class AuthorAssignmentService {
         this.authorRepository = authorRepository;
     }
 
-    public Optional<AuthorAssignment> findById(Long id) {
+    public Optional<AuthorAssignment> findById(String id) {
         return authorAssignmentRepository.findById(id);
     }
 
@@ -47,7 +44,7 @@ public class AuthorAssignmentService {
 
     @Transactional
     public AuthorAssignmentDto addAuthorAssignment(AuthorAssignmentCreateDto authorAssignmentCreateDto) {
-        Optional<Book> book = bookRepository.findById(authorAssignmentCreateDto.getBookId());
+        Optional<Book> book = bookRepository.findById(authorAssignmentCreateDto.getId());
         Optional<Author> author = authorRepository.findById(authorAssignmentCreateDto.getAuthorId());
 
         if (book.isEmpty() || author.isEmpty()) {
@@ -63,7 +60,7 @@ public class AuthorAssignmentService {
     }
 
     @Transactional
-    public Long deleteAuthorAssignment(Long id) {
+    public String deleteAuthorAssignment(String id) {
         try {
             authorAssignmentRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {

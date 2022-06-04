@@ -42,12 +42,12 @@ public class AuthorService {
         return AuthorMapper.authorToAuthorDto(authorFromRepo);
     }
 
-    public void deleteAuthor(Long authorId) {
+    public void deleteAuthor(String authorId) {
         Author author = authorRepository.findById(authorId).orElseThrow();
         authorRepository.delete(author);
     }
 
-    public Optional<Author> findById(Long id) {
+    public Optional<Author> findById(String id) {
         return authorRepository.findById(id);
     }
 

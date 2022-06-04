@@ -67,7 +67,7 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public Long deleteCustomer(Long id) {
+    public String deleteCustomer(String id) {
         try {
             customerRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {

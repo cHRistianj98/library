@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class BorrowingDto {
     @NotNull
-    private Long borrowingId;
+    private String id;
 
     @NotNull
     @JsonFormat

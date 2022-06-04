@@ -21,7 +21,7 @@ public class BorrowingMapper {
 
     public static BorrowingDto borrowingToBorrowingDto(Borrowing borrowing) {
         BorrowingDto borrowingDto = new BorrowingDto();
-        borrowingDto.setBorrowingId(borrowing.getId());
+        borrowingDto.setId(borrowing.getId());
         borrowingDto.setValidFrom(borrowing.getValidFrom());
         borrowingDto.setValidTo(borrowing.getValidTo());
         borrowingDto.setReturnDate(borrowing.getReturnDate());

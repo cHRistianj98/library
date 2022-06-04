@@ -48,7 +48,7 @@ public class LibraryController {
             @ApiResponse(code = 404, message = "Service not found"),
             @ApiResponse(code = 200, message = "Successful deleted", response = LibraryDto.class)
     })
-    public ResponseEntity<LibraryDto> getLibrary(@PathVariable Long id) {
+    public ResponseEntity<LibraryDto> getLibrary(@PathVariable String id) {
         Optional<Library> library = libraryService.findById(id);
         if (library.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -78,7 +78,7 @@ public class LibraryController {
             @ApiResponse(code = 404, message = "Service not found"),
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
-    public ResponseEntity<Long> deleteLibrary(@PathVariable Long id) {
+    public ResponseEntity<String> deleteLibrary(@PathVariable String id) {
         return ResponseEntity.ok(libraryService.deleteLibrary(id));
     }
 }

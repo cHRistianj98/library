@@ -1,8 +1,10 @@
 package pl.distributed.library.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,22 +19,13 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
+@Document("library")
 @NoArgsConstructor
-@Entity
-@Table(name = "library")
 public class Library {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
+    private String id;
     private Address address;
-
-    @OneToMany(mappedBy = "library")
     private Set<Borrowing> borrowings;
 
     public Library(Address address) {

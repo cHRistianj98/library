@@ -23,7 +23,7 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    public Optional<Address> findById(Long id) {
+    public Optional<Address> findById(String id) {
         return addressRepository.findById(id);
     }
 
@@ -46,7 +46,7 @@ public class AddressService {
     }
 
     @Transactional
-    public Long deleteAddress(Long id) {
+    public String deleteAddress(String id) {
         try {
             addressRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class EmployeeDto {
     @NotNull
-    private Long employeeId;
+    private String id;
 
     @NotNull
     private int salary;

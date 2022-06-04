@@ -55,7 +55,7 @@ public class LibraryService {
         throw new LibraryAlreadyExistsException();
     }
 
-    public Long deleteLibrary(Long id) {
+    public String deleteLibrary(String id) {
         libraryRepository.deleteById(id);
         return id;
     }
@@ -67,7 +67,7 @@ public class LibraryService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<Library> findById(Long id) {
+    public Optional<Library> findById(String id) {
         return libraryRepository.findById(id);
     }
 }

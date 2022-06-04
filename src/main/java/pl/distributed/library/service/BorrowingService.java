@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class BorrowingService {
-    private BorrowingRepository borrowingRepository;
-    private BookRepository bookRepository;
-    private CustomerRepository customerRepository;
+    private final BorrowingRepository borrowingRepository;
+    private final BookRepository bookRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
     public BorrowingService(BorrowingRepository borrowingRepository,
@@ -32,7 +32,7 @@ public class BorrowingService {
         this.customerRepository = customerRepository;
     }
 
-    public Optional<Borrowing> findById(Long id) {
+    public Optional<Borrowing> findById(String id) {
         return borrowingRepository.findById(id);
     }
 

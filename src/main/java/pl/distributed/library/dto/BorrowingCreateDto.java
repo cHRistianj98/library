@@ -23,10 +23,10 @@ public class BorrowingCreateDto {
     private LocalDate returnDate;
 
     @NotNull
-    private Long bookId;
+    private String bookId;
 
     @NotNull
-    private Long id;
+    private String id;
 
     @NotNull
     private Long employeeId;

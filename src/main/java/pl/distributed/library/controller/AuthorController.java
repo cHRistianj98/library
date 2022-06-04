@@ -3,6 +3,7 @@ package pl.distributed.library.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.distributed.library.dto.AuthorCreateDto;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class AuthorController {
     private final AuthorService authorService;
 
+    @Autowired
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
     }
@@ -33,7 +35,7 @@ public class AuthorController {
             @ApiResponse(code = 200, message = "Successful deleted", response = AuthorDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorDto> getAuthor(@PathVariable Long id) {
+    public ResponseEntity<AuthorDto> getAuthor(@PathVariable String id) {
         Optional<Author> author = authorService.findById(id);
         if (author.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -75,7 +77,7 @@ public class AuthorController {
             @ApiResponse(code = 200, message = "Successful deleted")
     })
     @DeleteMapping
-    private void deleteAuthor(Long authorId) {
+    private void deleteAuthor(String authorId) {
         authorService.deleteAuthor(authorId);
     }
 }
