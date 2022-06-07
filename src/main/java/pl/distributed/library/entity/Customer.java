@@ -49,7 +49,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private Set<Borrowing> borrowings;
 
-    public Customer(@NotNull String forename, @NotNull String surname, @NotNull @Email String email,
+    public Customer(@NotNull String forename, @NotNull String surname, @NotNull String email,
                     Address address, Set<Borrowing> borrowings) {
         this.forename = forename;
         this.surname = surname;

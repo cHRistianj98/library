@@ -17,7 +17,7 @@ public class LibraryMapper {
     public static LibraryDto libraryToLibraryDto(Library library) {
         LibraryDto libraryDto = new LibraryDto();
         libraryDto.setId(library.getId());
-        libraryDto.setAddressDto(AddressMapper.addressToAddressDto(library.getAddress()));
+        libraryDto.setAddress(AddressMapper.addressToAddressDto(library.getAddress()));
         return libraryDto;
     }
 

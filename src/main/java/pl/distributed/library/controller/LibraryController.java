@@ -6,9 +6,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.distributed.library.dto.AddressCreateDto;
-import pl.distributed.library.dto.LibraryCreateDto;
-import pl.distributed.library.dto.LibraryDto;
+import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.Library;
 import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.LibraryMapper;
@@ -34,7 +32,7 @@ public class LibraryController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = LibraryDto.class)
+            @ApiResponse(code = 200, message = "Successful returned", response = LibraryDto.class)
     })
     public ResponseEntity<List<LibraryDto>> getLibraries() {
         return ResponseEntity.ok(libraryService.findAll());
@@ -46,15 +44,10 @@ public class LibraryController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = LibraryDto.class)
+            @ApiResponse(code = 200, message = "Successful returned", response = LibraryDto.class)
     })
     public ResponseEntity<LibraryDto> getLibrary(@PathVariable Long id) {
-        Optional<Library> library = libraryService.findById(id);
-        if (library.isEmpty()) {
-            throw new ResourceNotFoundException();
-        } else {
-            return ResponseEntity.ok(LibraryMapper.libraryToLibraryDto(library.get()));
-        }
+        return ResponseEntity.ok(libraryService.findById(id));
     }
 
     @PostMapping
@@ -63,7 +56,7 @@ public class LibraryController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = LibraryDto.class)
+            @ApiResponse(code = 200, message = "Successful added", response = LibraryDto.class)
     })
     public ResponseEntity<LibraryCreateDto> addLibrary(@RequestBody @Valid AddressCreateDto addressCreateDto) {
         LibraryCreateDto libraryCreateDto = libraryService.addLibrary(addressCreateDto);

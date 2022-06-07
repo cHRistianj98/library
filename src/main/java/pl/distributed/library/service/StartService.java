@@ -52,23 +52,17 @@ public class StartService {
         logger.info("Author assignments were added!");
 
         Address libraryAddress = new Address("Wrocław", "Jana Pawła 2", "1", "52-222");
-        Address customerAddress = new Address("Wrocław", "Dworcowa", "2", "53-541");
-        addressRepository.save(libraryAddress);
+        Address customerAddress = new Address("Toruń", "Januszowa", "4", "88-800");
         addressRepository.save(customerAddress);
-        logger.info("Address were added!");
-//
-//        Library library = new Library(libraryAddress);
-//        libraryRepository.save(library);
-//        logger.info("library was added!");
-//
-//        Employee employee = new Employee(1000, "Jan", "Maroko", "czacza@wp.pl", new Library(), new HashSet<>());
-//        employeeRepository.save(employee);
-//        logger.info("employee was added!");
-//
-//        Client client = new Client("Andrzej", "Nowak", "jannowak.@wp.pl", 0,
-//                clientAddress, new HashSet<>());
-//        clientRepository.save(client);
-//        logger.info("client was added!");
+
+        Library library = new Library(libraryAddress);
+        libraryRepository.save(library);
+        logger.info("Library was added!");
+
+        Customer customer = new Customer("Marcin", "Nowak", "marcinnowak@wp.pl",
+                customerAddress, new HashSet<>());
+        customerRepository.save(customer);
+        logger.info("Customer was added!");
 //
 //        Borrowing borrowing = new Borrowing(LocalDate.now(), LocalDate.now().plusMonths(1), LocalDate.now().plusDays(1), book, client, employee);
 //        borrowingRepository.save(borrowing);

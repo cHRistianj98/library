@@ -1,6 +1,7 @@
 package pl.distributed.library.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.AddressCreateDto;
@@ -10,6 +11,8 @@ import pl.distributed.library.dto.LibraryDto;
 import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.Library;
 import pl.distributed.library.exception.LibraryAlreadyExistsException;
+import pl.distributed.library.exception.ResourceNotFoundException;
+import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.LibraryMapper;
 import pl.distributed.library.repository.AddressRepository;
 import pl.distributed.library.repository.LibraryRepository;
@@ -67,7 +70,8 @@ public class LibraryService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<Library> findById(Long id) {
-        return libraryRepository.findById(id);
+    public LibraryDto findById(Long id) {
+        Library library = libraryRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        return LibraryMapper.libraryToLibraryDto(library);
     }
 }

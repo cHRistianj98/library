@@ -13,5 +13,5 @@ public class LibraryDto {
     private Long id;
 
     @NotNull
-    private AddressDto addressDto;
+    private AddressDto address;
 }
