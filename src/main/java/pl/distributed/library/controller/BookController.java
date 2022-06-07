@@ -36,12 +36,7 @@ public class BookController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<BookDto> getBook(@PathVariable Long id) {
-        Optional<Book> book = bookService.findById(id);
-        if (book.isEmpty()) {
-            throw new ResourceNotFoundException();
-        } else {
-            return ResponseEntity.ok(BookMapper.bookToBookDto(book.get()));
-        }
+            return ResponseEntity.ok(bookService.findById(id));
     }
 
     @GetMapping
@@ -81,6 +76,19 @@ public class BookController {
         return ResponseEntity.created(URI.create("/" + bookDto.getId())).body(bookDto);
     }
 
+    @ApiOperation("Update book")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful updated", response = BookDto.class)
+    })
+    @PutMapping
+    public ResponseEntity<BookDto> updateBook(@RequestBody @Valid BookUpdateDto bookUpdateDto) {
+        return ResponseEntity.ok(bookService.updateBook(bookUpdateDto));
+    }
+
+    // TODO fix deleting
     @ApiOperation("Delete book")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),

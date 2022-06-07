@@ -7,7 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.*;
 import pl.distributed.library.exception.ResourceNotFoundException;
+import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.BookMapper;
+import pl.distributed.library.mapper.LibraryMapper;
 import pl.distributed.library.repository.AuthorAssignmentRepository;
 import pl.distributed.library.repository.AuthorRepository;
 import pl.distributed.library.repository.BookRepository;
@@ -34,8 +36,9 @@ public class BookService {
         this.borrowingRepository = borrowingRepository;
     }
 
-    public Optional<Book> findById(Long id) {
-        return bookRepository.findById(id);
+    public BookDto findById(Long id) {
+        Book book = bookRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        return BookMapper.bookToBookDto(book);
     }
 
     public List<BookDto> findAll() {
@@ -67,6 +70,18 @@ public class BookService {
         List<Long> authorIds = createAuthors(bookCreateDto.getAuthors());
         createAuthorAssignment(bookFromRepo.getId(), authorIds);
 
+        return BookMapper.bookToBookDto(bookFromRepo);
+    }
+
+    @Transactional
+    public BookDto updateBook(BookUpdateDto bookUpdateDto) {
+        Book book = bookRepository.findById(bookUpdateDto.getId())
+                .orElseThrow(ResourceNotFoundException::new);
+        book.setTitle(bookUpdateDto.getTitle());
+        book.setDescription(bookUpdateDto.getDescription());
+        book.setReleaseYear(bookUpdateDto.getReleaseYear());
+        book.setAvailability(bookUpdateDto.isAvailability());
+        Book bookFromRepo = bookRepository.save(book);
         return BookMapper.bookToBookDto(bookFromRepo);
     }
 

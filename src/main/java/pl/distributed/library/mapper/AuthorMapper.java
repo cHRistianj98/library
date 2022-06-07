@@ -1,6 +1,7 @@
 package pl.distributed.library.mapper;
 
 import pl.distributed.library.dto.AuthorDto;
+import pl.distributed.library.dto.AuthorUpdateDto;
 import pl.distributed.library.entity.Author;
 import pl.distributed.library.entity.AuthorAssignment;
 
@@ -31,5 +32,13 @@ public class AuthorMapper {
             authorDto.setBooks(Collections.emptyList());
         }
         return authorDto;
+    }
+
+    public static AuthorUpdateDto authorToAuthorUpdateDto(Author author) {
+        AuthorUpdateDto authorUpdateDto = new AuthorUpdateDto();
+        authorUpdateDto.setForename(author.getForename());
+        authorUpdateDto.setSurname(author.getSurname());
+        authorUpdateDto.setId(author.getId());
+        return authorUpdateDto;
     }
 }
