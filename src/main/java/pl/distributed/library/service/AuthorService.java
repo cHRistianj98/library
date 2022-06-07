@@ -42,7 +42,7 @@ public class AuthorService {
         return AuthorMapper.authorToAuthorDto(authorFromRepo);
     }
 
-    public void deleteAuthor(Long authorId) {
+    public void deleteAuthor(String authorId) {
         Author author = authorRepository.findById(authorId).orElseThrow();
         authorRepository.delete(author);
     }
@@ -57,7 +57,7 @@ public class AuthorService {
     }
 
 
-    public AuthorDto findById(Long id) {
+    public AuthorDto findById(String id) {
         Author author = authorRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         return AuthorMapper.authorToAuthorDto(author);
     }

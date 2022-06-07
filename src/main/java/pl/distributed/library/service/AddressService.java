@@ -23,7 +23,7 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    public AddressDto findById(Long id) {
+    public AddressDto findById(String id) {
         Optional<Address> address = addressRepository.findById(id);
         if (address.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -63,7 +63,7 @@ public class AddressService {
     }
 
     @Transactional
-    public Long deleteAddress(Long id) {
+    public String deleteAddress(String id) {
         try {
             addressRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {

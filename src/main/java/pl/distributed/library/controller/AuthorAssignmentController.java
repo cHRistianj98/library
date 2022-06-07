@@ -35,7 +35,7 @@ public class AuthorAssignmentController {
             @ApiResponse(code = 200, message = "Successful deleted", response = AuthorAssignmentDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorAssignmentDto> getAuthorAssignment(@PathVariable Long id) {
+    public ResponseEntity<AuthorAssignmentDto> getAuthorAssignment(@PathVariable String id) {
         Optional<AuthorAssignment> authorAssignment = authorAssignmentService.findById(id);
         if (authorAssignment.isEmpty()) {
             throw new ResourceNotFoundException();
@@ -81,7 +81,7 @@ public class AuthorAssignmentController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteAuthorAssignment(@PathVariable Long id) {
+    public ResponseEntity<String> deleteAuthorAssignment(@PathVariable String id) {
         return ResponseEntity.ok(authorAssignmentService.deleteAuthorAssignment(id));
     }
 }

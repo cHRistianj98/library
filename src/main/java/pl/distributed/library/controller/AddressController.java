@@ -35,7 +35,7 @@ public class AddressController {
             @ApiResponse(code = 200, message = "Successful deleted", response = AddressDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<AddressDto> getAddress(@PathVariable Long id) {
+    public ResponseEntity<AddressDto> getAddress(@PathVariable String id) {
         return ResponseEntity.ok(addressService.findById(id));
     }
 
@@ -85,7 +85,7 @@ public class AddressController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteAddress(@PathVariable Long id) {
+    public ResponseEntity<String> deleteAddress(@PathVariable String id) {
         return ResponseEntity.ok(addressService.deleteAddress(id));
     }
 }

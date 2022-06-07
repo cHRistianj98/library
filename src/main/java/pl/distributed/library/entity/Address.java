@@ -1,39 +1,33 @@
 package pl.distributed.library.entity;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-@Entity
-@Table(name = "address")
-@Getter
-@Setter
+@Data
+@Document("address")
 @NoArgsConstructor
 public class Address {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private String id;
 
     @NotNull
-    @Column(name = "city", nullable = false)
     private String city;
 
     @NotNull
-    @Column(name = "street", nullable = false)
     private String street;
 
     @NotNull
-    @Column(name = "number", nullable = false)
     private String number;
 
     @NotNull
-    @Column(name = "postal_code", nullable = false)
     private String postalCode;
 
     @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)

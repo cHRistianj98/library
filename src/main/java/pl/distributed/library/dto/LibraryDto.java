@@ -10,7 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class LibraryDto {
     @NotNull
-    private Long id;
+    private String id;
 
     @NotNull
     private AddressDto address;

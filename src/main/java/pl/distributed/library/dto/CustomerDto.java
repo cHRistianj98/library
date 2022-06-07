@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class CustomerDto {
     @NotNull
-    private Long id;
+    private String id;
 
     @NotNull
     private String forename;

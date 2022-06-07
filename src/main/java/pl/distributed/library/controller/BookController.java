@@ -35,7 +35,7 @@ public class BookController {
             @ApiResponse(code = 200, message = "Successful deleted", response = BookDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<BookDto> getBook(@PathVariable Long id) {
+    public ResponseEntity<BookDto> getBook(@PathVariable String id) {
             return ResponseEntity.ok(bookService.findById(id));
     }
 
@@ -97,7 +97,7 @@ public class BookController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteBook(@PathVariable Long id) {
+    public ResponseEntity<String> deleteBook(@PathVariable String id) {
         return ResponseEntity.ok(bookService.deleteBook(id));
     }
 }

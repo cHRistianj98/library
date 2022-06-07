@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 public class BookDto {
     @NotNull
-    private Long id;
+    private String id;
 
     @NotNull
     private String title;

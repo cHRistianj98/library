@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class BorrowingUpdateDto {
-    private Long id;
+    private String id;
     private LocalDate validTo;
     private LocalDate returnDate;
 }

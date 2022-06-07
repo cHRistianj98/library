@@ -37,7 +37,7 @@ public class BookService {
         this.borrowingRepository = borrowingRepository;
     }
 
-    public BookDto findById(Long id) {
+    public BookDto findById(String id) {
         Book book = bookRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         return BookMapper.bookToBookDto(book);
     }
@@ -68,7 +68,7 @@ public class BookService {
         book.setReleaseYear(bookCreateDto.getReleaseYear());
         Book bookFromRepo = bookRepository.save(book);
 
-        List<Long> authorIds = createAuthors(bookCreateDto.getAuthors());
+        List<String> authorIds = createAuthors(bookCreateDto.getAuthors());
         createAuthorAssignment(bookFromRepo.getId(), authorIds);
 
         return BookMapper.bookToBookDto(bookFromRepo);
@@ -87,7 +87,7 @@ public class BookService {
     }
 
     @Transactional
-    public Long deleteBook(Long id) {
+    public String deleteBook(String id) {
         try {
             bookRepository.deleteById(id);
         } catch (Exception ex) {
@@ -96,8 +96,8 @@ public class BookService {
         return id;
     }
 
-    private List<Long> createAuthors(List<AuthorCreateDto> authorCreateDto) {
-        List<Long> authorIds = new ArrayList<>();
+    private List<String> createAuthors(List<AuthorCreateDto> authorCreateDto) {
+        List<String> authorIds = new ArrayList<>();
         for (AuthorCreateDto createDto : authorCreateDto) {
             Optional<Author> author = authorRepository.findByForenameAndSurname(
                     createDto.getForename(),
@@ -115,7 +115,7 @@ public class BookService {
         return authorIds;
     }
 
-    private void createAuthorAssignment(Long bookId, List<Long> authorIds) {
+    private void createAuthorAssignment(String bookId, List<String> authorIds) {
         Optional<Book> book = bookRepository.findById(bookId);
         if (book.isEmpty()) {
             throw new ResourceNotFoundException();

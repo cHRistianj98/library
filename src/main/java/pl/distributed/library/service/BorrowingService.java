@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class BorrowingService {
-    private BorrowingRepository borrowingRepository;
-    private BookRepository bookRepository;
-    private CustomerRepository customerRepository;
-    private LibraryRepository libraryRepository;
+    private final BorrowingRepository borrowingRepository;
+    private final BookRepository bookRepository;
+    private final CustomerRepository customerRepository;
+    private final LibraryRepository libraryRepository;
 
     @Autowired
     public BorrowingService(BorrowingRepository borrowingRepository, BookRepository bookRepository,
@@ -34,7 +34,7 @@ public class BorrowingService {
         this.libraryRepository = libraryRepository;
     }
 
-    public BorrowingDto findById(Long id) {
+    public BorrowingDto findById(String id) {
         Borrowing borrowing = borrowingRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         return BorrowingMapper.borrowingToBorrowingDto(borrowing);
     }
@@ -82,7 +82,7 @@ public class BorrowingService {
     }
 
     @Transactional
-    public Long deleteBorrowing(Long id) {
+    public String deleteBorrowing(String id) {
         try {
             borrowingRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class AuthorAssignmentDto {
     @NotNull
-    private Long authorAssignmentId;
+    private String authorAssignmentId;
 
     @NotNull
     private AuthorDto author;

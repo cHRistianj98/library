@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class AuthorDto {
     @NotNull
-    private Long authorId;
+    private String authorId;
 
     @NotNull
     private String forename;

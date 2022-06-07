@@ -32,7 +32,7 @@ public class AuthorController {
             @ApiResponse(code = 200, message = "Successful returned", response = AuthorDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorDto> getAuthor(@PathVariable Long id) {
+    public ResponseEntity<AuthorDto> getAuthor(@PathVariable String id) {
             return ResponseEntity.ok(authorService.findById(id));
     }
 
@@ -80,7 +80,7 @@ public class AuthorController {
             @ApiResponse(code = 200, message = "Successful deleted")
     })
     @DeleteMapping
-    private void deleteAuthor(Long authorId) {
+    private void deleteAuthor(String authorId) {
         authorService.deleteAuthor(authorId);
     }
 }

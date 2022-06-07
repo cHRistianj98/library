@@ -69,7 +69,7 @@ public class CustomerService {
 
     }
 
-    public CustomerDto findById(Long id) {
+    public CustomerDto findById(String id) {
         Customer customer = customerRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         return CustomerMapper.customerToCustomerDto(customer);
 
@@ -82,7 +82,7 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public Long deleteCustomer(Long id) {
+    public String deleteCustomer(String id) {
         try {
             customerRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {

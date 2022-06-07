@@ -31,7 +31,7 @@ public class CustomerController {
             @ApiResponse(code = 200, message = "Successful returned", response = CustomerDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDto> getCustomer(@PathVariable Long id) {
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable String id) {
             return ResponseEntity.ok(customerService.findById(id));
     }
 
@@ -80,7 +80,7 @@ public class CustomerController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCustomer(@PathVariable String id) {
         return ResponseEntity.ok(customerService.deleteCustomer(id));
     }
 }

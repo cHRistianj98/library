@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class BorrowingCustomerDto {
     @NotNull
-    private Long borrowingId;
+    private String borrowingId;
 
     @NotNull
     @JsonFormat
@@ -26,7 +26,7 @@ public class BorrowingCustomerDto {
     private LocalDate returnDate;
 
     @NotNull
-    private Long libraryId;
+    private String libraryId;
 
     @NotNull
     private BookBorrowingDto book;

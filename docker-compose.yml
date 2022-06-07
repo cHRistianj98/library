@@ -1,79 +1,44 @@
-version: '3'
-
-networks:
-  app-tier:
-    driver: bridge
+version: '2'
 
 services:
-#  library-backend:
-#    image: 'library:latest'
-#    build:
-#      context: .
-#    container_name: library-backend
-#    restart: always
-#    ports:
-#    - "8080:8080"
-#    networks:
-#      - app-tier
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql-master:5432/library
-#      - SPRING_DATASOURCE_USERNAME=library
-#      - SPRING_DATASOURCE_PASSWORD=zaq12wsx
-#      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
-#    depends_on:
-#      - postgresql-master
-
-  postgresql-master:
-    image: 'bitnami/postgresql:11'
-    container_name: master
-    networks:
-      - app-tier
+  mongodb-primary:
+    image: docker.io/bitnami/mongodb:5.0
     ports:
-      - '5433:5432'
-    restart: always
+      - "27017:27017"
     environment:
-      - POSTGRESQL_REPLICATION_MODE=master
-      - POSTGRESQL_REPLICATION_USER=replicator
-      - POSTGRESQL_REPLICATION_PASSWORD=replicator_pass
-      - POSTGRESQL_USERNAME=library
-      - POSTGRESQL_PASSWORD=zaq12wsx
-      - POSTGRESQL_DATABASE=library
-#      - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
-#      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=2
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+    volumes:
+      - 'mongodb_master_data:/bitnami/mongodb'
 
-  postgresql-slave:
-    image: 'bitnami/postgresql:11'
-    container_name: slave-1
-    networks:
-      - app-tier
-    restart: always
+  mongodb-secondary:
+    image: docker.io/bitnami/mongodb:5.0
     ports:
-      - '5434:5432'
+      - "27018:27017"
     depends_on:
-      - postgresql-master
+      - mongodb-primary
     environment:
-      - POSTGRESQL_REPLICATION_MODE=slave
-      - POSTGRESQL_REPLICATION_USER=replicator
-      - POSTGRESQL_REPLICATION_PASSWORD=replicator_pass
-      - POSTGRESQL_MASTER_HOST=postgresql-master
-      - POSTGRESQL_PASSWORD=zaq12wsx
-      - POSTGRESQL_MASTER_PORT_NUMBER=5432
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-secondary
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
 
-
-  postgresql-slave2:
-    image: 'bitnami/postgresql:11'
-    container_name: slave-2
-    restart: always
-    networks:
-      - app-tier
+  mongodb-arbiter:
+    image: docker.io/bitnami/mongodb:5.0
     ports:
-      - '5435:5432'
+      - "27019:27017"
     depends_on:
-      - postgresql-master
+      - mongodb-primary
     environment:
-      - POSTGRESQL_REPLICATION_MODE=slave
-      - POSTGRESQL_REPLICATION_USER=replicator
-      - POSTGRESQL_REPLICATION_PASSWORD=replicator_pass
-      - POSTGRESQL_PASSWORD=zaq12wsx
-      - POSTGRESQL_MASTER_HOST=postgresql-master
-      - POSTGRESQL_MASTER_PORT_NUMBER=5432
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+
+volumes:
+  mongodb_master_data:
+    driver: local

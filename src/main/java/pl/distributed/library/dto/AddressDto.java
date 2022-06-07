@@ -10,7 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class AddressDto {
     @NotNull
-    private Long addressId;
+    private String addressId;
 
     @NotNull
     private String city;
@@ -24,7 +24,7 @@ public class AddressDto {
     @NotNull
     private String postalCode;
 
-    private Long libraryId;
+    private String libraryId;
 
     private Set<CustomerDto> customers;
 }

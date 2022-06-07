@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class CustomerBorrowingDto {
     @NotNull
-    private Long id;
+    private String id;
 
     @NotNull
     private String forename;

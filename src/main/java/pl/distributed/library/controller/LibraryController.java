@@ -71,7 +71,7 @@ public class LibraryController {
             @ApiResponse(code = 404, message = "Service not found"),
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
-    public ResponseEntity<Long> deleteLibrary(@PathVariable Long id) {
+    public ResponseEntity<String> deleteLibrary(@PathVariable String id) {
         return ResponseEntity.ok(libraryService.deleteLibrary(id));
     }
 }

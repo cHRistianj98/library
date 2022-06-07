@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthorAssignmentService {
-    private AuthorAssignmentRepository authorAssignmentRepository;
-    private BookRepository bookRepository;
-    private AuthorRepository authorRepository;
+    private final AuthorAssignmentRepository authorAssignmentRepository;
+    private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
 
     @Autowired
     public AuthorAssignmentService(AuthorAssignmentRepository authorAssignmentRepository,
@@ -34,7 +34,7 @@ public class AuthorAssignmentService {
         this.authorRepository = authorRepository;
     }
 
-    public Optional<AuthorAssignment> findById(Long id) {
+    public Optional<AuthorAssignment> findById(String id) {
         return authorAssignmentRepository.findById(id);
     }
 
@@ -63,7 +63,7 @@ public class AuthorAssignmentService {
     }
 
     @Transactional
-    public Long deleteAuthorAssignment(Long id) {
+    public String deleteAuthorAssignment(String id) {
         try {
             authorAssignmentRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {

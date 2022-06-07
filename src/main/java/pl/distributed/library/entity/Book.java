@@ -1,37 +1,28 @@
 package pl.distributed.library.entity;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
+@Document("book")
 @NoArgsConstructor
-@Entity
-@Table(name = "book")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
+    private String id;
     @NotNull
-    @Column(name = "title", nullable = false)
     private String title;
-
     @NotNull
-    @Column(name = "description", nullable = false)
     private String description;
-
     @NotNull
-    @Column(name = "release_year", nullable = false)
     private int releaseYear;
-
-    @Column(name = "availability")
     private boolean availability;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "book", cascade = CascadeType.ALL)

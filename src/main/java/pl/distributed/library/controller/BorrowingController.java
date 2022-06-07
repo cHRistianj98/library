@@ -35,7 +35,7 @@ public class BorrowingController {
             @ApiResponse(code = 200, message = "Successfully returned", response = BorrowingDto.class)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<BorrowingDto> getBorrowing(@PathVariable Long id) {
+    public ResponseEntity<BorrowingDto> getBorrowing(@PathVariable String id) {
             return ResponseEntity.ok(borrowingService.findById(id));
     }
 
@@ -84,7 +84,7 @@ public class BorrowingController {
             @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteBorrowing(@PathVariable Long id) {
+    public ResponseEntity<String> deleteBorrowing(@PathVariable String id) {
         return ResponseEntity.ok(borrowingService.deleteBorrowing(id));
     }
 }
