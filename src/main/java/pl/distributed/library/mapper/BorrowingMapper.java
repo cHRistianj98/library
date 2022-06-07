@@ -1,5 +1,6 @@
 package pl.distributed.library.mapper;
 
+import pl.distributed.library.dto.BorrowingCustomerDto;
 import pl.distributed.library.dto.BorrowingDto;
 import pl.distributed.library.entity.Borrowing;
 
@@ -28,6 +29,17 @@ public class BorrowingMapper {
         borrowingDto.setLibraryId(borrowing.getLibrary().getId());
         borrowingDto.setBook(BookMapper.bookToBookBorrowingDto(borrowing.getBook()));
         borrowingDto.setCustomer(CustomerMapper.customerToCustomerBorrowingDto(borrowing.getCustomer()));
+        return borrowingDto;
+    }
+
+    public static BorrowingCustomerDto borrowingToBorrowingCustomerDto(Borrowing borrowing) {
+        BorrowingCustomerDto borrowingDto = new BorrowingCustomerDto();
+        borrowingDto.setBorrowingId(borrowing.getId());
+        borrowingDto.setValidFrom(borrowing.getValidFrom());
+        borrowingDto.setValidTo(borrowing.getValidTo());
+        borrowingDto.setReturnDate(borrowing.getReturnDate());
+        borrowingDto.setLibraryId(borrowing.getLibrary().getId());
+        borrowingDto.setBook(BookMapper.bookToBookBorrowingDto(borrowing.getBook()));
         return borrowingDto;
     }
 }

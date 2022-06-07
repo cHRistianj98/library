@@ -2,8 +2,11 @@ package pl.distributed.library.mapper;
 
 import pl.distributed.library.dto.CustomerBorrowingDto;
 import pl.distributed.library.dto.CustomerDto;
+import pl.distributed.library.entity.AuthorAssignment;
 import pl.distributed.library.entity.Customer;
 
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,6 +24,14 @@ public class CustomerMapper {
         customerDto.setForename(customer.getForename());
         customerDto.setSurname(customer.getSurname());
         customerDto.setAddress(AddressMapper.addressToAddressCreateDto(customer.getAddress()));
+        if (Objects.nonNull(customer.getBorrowings())) {
+            customerDto.setBorrowings(customer.getBorrowings()
+                    .stream()
+                    .map(BorrowingMapper::borrowingToBorrowingCustomerDto)
+                    .collect(Collectors.toSet()));
+        } else {
+            customerDto.setBorrowings(Collections.emptySet());
+        }
         return customerDto;
     }
 

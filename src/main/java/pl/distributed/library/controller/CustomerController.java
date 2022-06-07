@@ -7,15 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.distributed.library.dto.*;
-import pl.distributed.library.entity.Customer;
-import pl.distributed.library.exception.ResourceNotFoundException;
-import pl.distributed.library.mapper.CustomerMapper;
 import pl.distributed.library.service.CustomerService;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")

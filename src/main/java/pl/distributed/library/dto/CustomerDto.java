@@ -27,6 +27,5 @@ public class CustomerDto {
     @NotNull
     private AddressCreateDto address;
 
-    // TODO: borrowings
-//    private Set<Borrowing> borrowings;
+    private Set<BorrowingCustomerDto> borrowings;
 }
