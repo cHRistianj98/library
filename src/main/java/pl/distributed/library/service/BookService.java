@@ -17,6 +17,7 @@ import pl.distributed.library.repository.BorrowingRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -89,7 +90,7 @@ public class BookService {
     public Long deleteBook(Long id) {
         try {
             bookRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException ex) {
+        } catch (Exception ex) {
             throw new ResourceNotFoundException();
         }
         return id;

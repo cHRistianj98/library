@@ -24,6 +24,14 @@ public class BookMapper {
         bookDto.setReleaseYear(book.getReleaseYear());
         bookDto.setDescription(book.getDescription());
         bookDto.setAvailability(book.isAvailability());
+        if (Objects.nonNull(book.getBorrowings())) {
+            bookDto.setBorrowings(book.getBorrowings().stream()
+                .map(BorrowingMapper::borrowingToBorrowingBookDto)
+                .collect(Collectors.toList()));
+        } else {
+            bookDto.setBorrowings(Collections.emptyList());
+        }
+
         if (Objects.nonNull(book.getAuthorAssignments())) {
             bookDto.setAuthors(book.getAuthorAssignments()
                     .stream()

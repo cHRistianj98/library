@@ -25,6 +25,5 @@ public class BookDto {
 
     private List<AuthorUpdateDto> authors;
 
-    //TODO: borrowings
-    //private List<BorrowingDto> borrowings;
+    private List<BorrowingBookDto> borrowings;
 }
