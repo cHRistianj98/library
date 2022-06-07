@@ -36,13 +36,7 @@ public class AddressController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<AddressDto> getAddress(@PathVariable Long id) {
-        Optional<Address> address = addressService.findById(id);
-        if (address.isEmpty()) {
-            throw new ResourceNotFoundException();
-        } else {
-            return ResponseEntity.ok(
-                    AddressMapper.addressToAddressDto(address.get()));
-        }
+        return ResponseEntity.ok(addressService.findById(id));
     }
 
     @GetMapping
@@ -69,6 +63,18 @@ public class AddressController {
     public ResponseEntity<AddressDto> addAddress(@RequestBody @Valid AddressCreateDto addressCreateDto) {
         AddressDto addressDto = addressService.addAddress(addressCreateDto);
         return ResponseEntity.created(URI.create("/" + addressDto.getAddressId())).body(addressDto);
+    }
+
+    @ApiOperation("Update address")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful updated", response = AddressDto.class)
+    })
+    @PutMapping
+    public ResponseEntity<AddressDto> updateAddress(@RequestBody @Valid AddressUpdateDto addressUpdateDto) {
+        return ResponseEntity.ok(addressService.updateAddress(addressUpdateDto));
     }
 
     @ApiOperation("Delete address")

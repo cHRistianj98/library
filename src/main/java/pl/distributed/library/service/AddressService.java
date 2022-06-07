@@ -23,8 +23,13 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    public Optional<Address> findById(Long id) {
-        return addressRepository.findById(id);
+    public AddressDto findById(Long id) {
+        Optional<Address> address = addressRepository.findById(id);
+        if (address.isEmpty()) {
+            throw new ResourceNotFoundException();
+        } else {
+            return AddressMapper.addressToAddressDto(address.get());
+        }
     }
 
     public List<AddressDto> findAll() {
@@ -32,6 +37,18 @@ public class AddressService {
         return addresses.stream()
                 .map(AddressMapper::addressToAddressDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public AddressDto updateAddress(AddressUpdateDto addressUpdateDto) {
+        Address address = addressRepository.findById(addressUpdateDto.getId())
+                .orElseThrow(ResourceNotFoundException::new);
+        address.setPostalCode(addressUpdateDto.getPostalCode());
+        address.setNumber(addressUpdateDto.getNumber());
+        address.setStreet(addressUpdateDto.getStreet());
+        address.setCity(addressUpdateDto.getCity());
+        Address addressFromRepo = addressRepository.save(address);
+        return AddressMapper.addressToAddressDto(addressFromRepo);
     }
 
     @Transactional

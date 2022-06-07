@@ -4,6 +4,7 @@ import pl.distributed.library.dto.AddressCreateDto;
 import pl.distributed.library.dto.AddressDto;
 import pl.distributed.library.entity.Address;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,13 @@ public class AddressMapper {
         addressDto.setStreet(address.getStreet());
         addressDto.setNumber(address.getNumber());
         addressDto.setPostalCode(address.getPostalCode());
+        if (Objects.nonNull(address.getLibrary())) {
+            addressDto.setLibraryId(address.getLibrary().getId());
+        }
+        if (Objects.nonNull(address.getCustomers())) {
+            addressDto.setCustomers(CustomerMapper.customerSetToCustomerDtoSet(address.getCustomers()));
+        }
+
         return addressDto;
     }
 

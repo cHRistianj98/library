@@ -22,6 +22,4 @@ public class CustomerDto {
     @NotNull
     @Email
     private String email;
-
-    private int debt;
 }
