@@ -5,8 +5,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.distributed.library.dto.AuthorCreateDto;
-import pl.distributed.library.dto.AuthorDto;
+import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.Author;
 import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.AuthorMapper;
@@ -30,17 +29,11 @@ public class AuthorController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = AuthorDto.class)
+            @ApiResponse(code = 200, message = "Successful returned", response = AuthorDto.class)
     })
     @GetMapping("/{id}")
     public ResponseEntity<AuthorDto> getAuthor(@PathVariable Long id) {
-        Optional<Author> author = authorService.findById(id);
-        if (author.isEmpty()) {
-            throw new ResourceNotFoundException();
-        } else {
-            return ResponseEntity.ok(
-                    AuthorMapper.authorToAuthorDto(author.get()));
-        }
+            return ResponseEntity.ok(authorService.findById(id));
     }
 
     @GetMapping
@@ -49,7 +42,7 @@ public class AuthorController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = AuthorDto.class)
+            @ApiResponse(code = 200, message = "Successful returned", response = AuthorDto.class)
     })
     public ResponseEntity<List<AuthorDto>> getAuthors() {
         return ResponseEntity.ok(authorService.findAll());
@@ -60,14 +53,26 @@ public class AuthorController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = Author.class)
+            @ApiResponse(code = 200, message = "Successful added", response = Author.class)
     })
     @PostMapping
     private AuthorDto saveAuthor(@RequestBody @Valid AuthorCreateDto author) {
         return authorService.saveAuthor(author);
     }
 
-    @ApiOperation("Remove authors")
+    @ApiOperation("Update author")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful updated", response = AuthorDto.class)
+    })
+    @PutMapping
+    public ResponseEntity<AuthorDto> updateAuthor(@RequestBody @Valid AuthorUpdateDto addressUpdateDto) {
+        return ResponseEntity.ok(authorService.updateAuthor(addressUpdateDto));
+    }
+
+    @ApiOperation("Delete authors")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),

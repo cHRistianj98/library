@@ -8,12 +8,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 public class AuthorUpdateDto {
-    @NotNull
-    private Long authorId;
-
-    @NotNull
+    private Long id;
     private String forename;
-
-    @NotNull
     private String surname;
 }

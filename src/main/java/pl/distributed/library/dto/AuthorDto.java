@@ -6,6 +6,7 @@ import pl.distributed.library.entity.AuthorAssignment;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -19,4 +20,6 @@ public class AuthorDto {
 
     @NotNull
     private String surname;
+
+    private List<BookDto> books;
 }

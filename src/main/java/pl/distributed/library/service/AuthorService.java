@@ -4,14 +4,14 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.distributed.library.dto.AddressDto;
-import pl.distributed.library.dto.AuthorCreateDto;
-import pl.distributed.library.dto.AuthorDto;
-import pl.distributed.library.dto.AuthorUpdateDto;
+import pl.distributed.library.dto.*;
 import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.Author;
+import pl.distributed.library.entity.Library;
+import pl.distributed.library.exception.ResourceNotFoundException;
 import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.AuthorMapper;
+import pl.distributed.library.mapper.LibraryMapper;
 import pl.distributed.library.repository.AuthorRepository;
 
 import javax.persistence.EntityManager;
@@ -47,8 +47,19 @@ public class AuthorService {
         authorRepository.delete(author);
     }
 
-    public Optional<Author> findById(Long id) {
-        return authorRepository.findById(id);
+    public AuthorDto updateAuthor(AuthorUpdateDto authorUpdateDto) {
+        Author author = authorRepository.findById(authorUpdateDto.getId())
+                .orElseThrow(ResourceNotFoundException::new);
+        author.setForename(authorUpdateDto.getForename());
+        author.setSurname(authorUpdateDto.getSurname());
+        Author authorFromRepo = authorRepository.save(author);
+        return AuthorMapper.authorToAuthorDto(authorFromRepo);
+    }
+
+
+    public AuthorDto findById(Long id) {
+        Author author = authorRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        return AuthorMapper.authorToAuthorDto(author);
     }
 
     public List<AuthorDto> findAll() {
