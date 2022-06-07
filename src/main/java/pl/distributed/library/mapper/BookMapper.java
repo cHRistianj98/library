@@ -1,5 +1,6 @@
 package pl.distributed.library.mapper;
 
+import pl.distributed.library.dto.BookBorrowingDto;
 import pl.distributed.library.dto.BookDto;
 import pl.distributed.library.entity.AuthorAssignment;
 import pl.distributed.library.entity.Book;
@@ -33,5 +34,24 @@ public class BookMapper {
             bookDto.setAuthors(Collections.emptyList());
         }
         return bookDto;
+    }
+
+    public static BookBorrowingDto bookToBookBorrowingDto(Book book) {
+        BookBorrowingDto bookBorrowingDto = new BookBorrowingDto();
+        bookBorrowingDto.setId(book.getId());
+        bookBorrowingDto.setTitle(book.getTitle());
+        bookBorrowingDto.setReleaseYear(book.getReleaseYear());
+        bookBorrowingDto.setDescription(book.getDescription());
+        bookBorrowingDto.setAvailability(book.isAvailability());
+        if (Objects.nonNull(book.getAuthorAssignments())) {
+            bookBorrowingDto.setAuthors(book.getAuthorAssignments()
+                    .stream()
+                    .map(AuthorAssignment::getAuthor)
+                    .map(AuthorMapper::authorToAuthorUpdateDto)
+                    .collect(Collectors.toList()));
+        } else {
+            bookBorrowingDto.setAuthors(Collections.emptyList());
+        }
+        return bookBorrowingDto;
     }
 }

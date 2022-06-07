@@ -32,16 +32,11 @@ public class BorrowingController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = BorrowingDto.class)
+            @ApiResponse(code = 200, message = "Successfully returned", response = BorrowingDto.class)
     })
     @GetMapping("/{id}")
     public ResponseEntity<BorrowingDto> getBorrowing(@PathVariable Long id) {
-        Optional<Borrowing> borrowing = borrowingService.findById(id);
-        if (borrowing.isEmpty()) {
-            throw new ResourceNotFoundException();
-        } else {
-            return ResponseEntity.ok(BorrowingMapper.borrowingToBorrowingDto(borrowing.get()));
-        }
+            return ResponseEntity.ok(borrowingService.findById(id));
     }
 
     @GetMapping
@@ -50,7 +45,7 @@ public class BorrowingController {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Service not found"),
-            @ApiResponse(code = 200, message = "Successful deleted", response = BorrowingDto.class)
+            @ApiResponse(code = 200, message = "Successfully returned", response = BorrowingDto.class)
     })
     public ResponseEntity<List<BorrowingDto>> getBorrowings() {
         return ResponseEntity.ok(borrowingService.findAll());
@@ -67,6 +62,18 @@ public class BorrowingController {
     public ResponseEntity<BorrowingDto> addBorrowing(@RequestBody @Valid BorrowingCreateDto borrowingCreateDto) {
         BorrowingDto borrowingDto = borrowingService.addBorrowing(borrowingCreateDto);
         return ResponseEntity.created(URI.create("/" + borrowingDto.getBorrowingId())).body(borrowingDto);
+    }
+
+    @ApiOperation("Update borrowing")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful updated", response = BorrowingDto.class)
+    })
+    @PutMapping
+    public ResponseEntity<BorrowingDto> updateBorrowing(@RequestBody @Valid BorrowingUpdateDto borrowingUpdateDto) {
+        return ResponseEntity.ok(borrowingService.updateBorrowing(borrowingUpdateDto));
     }
 
     @ApiOperation("Delete borrowing")

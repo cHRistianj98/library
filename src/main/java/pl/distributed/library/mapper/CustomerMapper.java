@@ -1,5 +1,6 @@
 package pl.distributed.library.mapper;
 
+import pl.distributed.library.dto.CustomerBorrowingDto;
 import pl.distributed.library.dto.CustomerDto;
 import pl.distributed.library.entity.Customer;
 
@@ -21,5 +22,15 @@ public class CustomerMapper {
         customerDto.setSurname(customer.getSurname());
         customerDto.setAddress(AddressMapper.addressToAddressCreateDto(customer.getAddress()));
         return customerDto;
+    }
+
+    public static CustomerBorrowingDto customerToCustomerBorrowingDto(Customer customer) {
+        CustomerBorrowingDto customerBorrowingDto = new CustomerBorrowingDto();
+        customerBorrowingDto.setId(customer.getId());
+        customerBorrowingDto.setEmail(customer.getEmail());
+        customerBorrowingDto.setForename(customer.getForename());
+        customerBorrowingDto.setSurname(customer.getSurname());
+        customerBorrowingDto.setAddress(AddressMapper.addressToAddressCreateDto(customer.getAddress()));
+        return customerBorrowingDto;
     }
 }

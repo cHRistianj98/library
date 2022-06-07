@@ -26,8 +26,8 @@ public class BorrowingCreateDto {
     private Long bookId;
 
     @NotNull
-    private Long id;
+    private Long customerId;
 
     @NotNull
-    private Long employeeId;
+    private Long libraryId;
 }

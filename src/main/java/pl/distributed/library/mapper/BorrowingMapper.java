@@ -25,6 +25,9 @@ public class BorrowingMapper {
         borrowingDto.setValidFrom(borrowing.getValidFrom());
         borrowingDto.setValidTo(borrowing.getValidTo());
         borrowingDto.setReturnDate(borrowing.getReturnDate());
+        borrowingDto.setLibraryId(borrowing.getLibrary().getId());
+        borrowingDto.setBook(BookMapper.bookToBookBorrowingDto(borrowing.getBook()));
+        borrowingDto.setCustomer(CustomerMapper.customerToCustomerBorrowingDto(borrowing.getCustomer()));
         return borrowingDto;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pl.distributed.library.entity.*;
 import pl.distributed.library.repository.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 
 @Service
@@ -63,9 +64,9 @@ public class StartService {
                 customerAddress, new HashSet<>());
         customerRepository.save(customer);
         logger.info("Customer was added!");
-//
-//        Borrowing borrowing = new Borrowing(LocalDate.now(), LocalDate.now().plusMonths(1), LocalDate.now().plusDays(1), book, client, employee);
-//        borrowingRepository.save(borrowing);
-//        logger.info("borrowing was added!");
+
+        Borrowing borrowing = new Borrowing(LocalDate.now(), LocalDate.now().plusMonths(1), LocalDate.now().plusDays(1), book, customer, library);
+        borrowingRepository.save(borrowing);
+        logger.info("borrowing was added!");
     }
 }

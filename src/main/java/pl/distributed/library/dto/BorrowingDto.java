@@ -24,4 +24,13 @@ public class BorrowingDto {
     @NotNull
     @JsonFormat
     private LocalDate returnDate;
+
+    @NotNull
+    private Long libraryId;
+
+    @NotNull
+    private BookBorrowingDto book;
+
+    @NotNull
+    private CustomerBorrowingDto customer;
 }
