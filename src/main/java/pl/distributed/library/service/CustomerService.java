@@ -5,10 +5,12 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.distributed.library.dto.CustomerDto;
+import pl.distributed.library.dto.CustomerUpdateDto;
 import pl.distributed.library.dto.NewCustomerDto;
 import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.Customer;
 import pl.distributed.library.exception.ResourceNotFoundException;
+import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.CustomerMapper;
 import pl.distributed.library.repository.AddressRepository;
 import pl.distributed.library.repository.CustomerRepository;
@@ -56,8 +58,21 @@ public class CustomerService {
         return CustomerMapper.customerToCustomerDto(customer);
     }
 
-    public Optional<Customer> findById(Long id) {
-        return customerRepository.findById(id);
+    public CustomerDto updateCustomer(CustomerUpdateDto customerUpdateDto) {
+        Customer customer = customerRepository.findById(customerUpdateDto.getId())
+                .orElseThrow(ResourceNotFoundException::new);
+        customer.setForename(customerUpdateDto.getForename());
+        customer.setSurname(customerUpdateDto.getSurname());
+        customer.setEmail(customerUpdateDto.getEmail());
+        customerRepository.save(customer);
+        return CustomerMapper.customerToCustomerDto(customer);
+
+    }
+
+    public CustomerDto findById(Long id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        return CustomerMapper.customerToCustomerDto(customer);
+
     }
 
     public List<CustomerDto> findAll() {

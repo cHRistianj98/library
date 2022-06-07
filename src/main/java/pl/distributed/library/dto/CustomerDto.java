@@ -2,6 +2,7 @@ package pl.distributed.library.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.distributed.library.entity.Borrowing;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -22,4 +23,10 @@ public class CustomerDto {
     @NotNull
     @Email
     private String email;
+
+    @NotNull
+    private AddressCreateDto address;
+
+    // TODO: borrowings
+//    private Set<Borrowing> borrowings;
 }

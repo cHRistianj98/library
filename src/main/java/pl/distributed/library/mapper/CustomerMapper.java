@@ -19,6 +19,7 @@ public class CustomerMapper {
         customerDto.setEmail(customer.getEmail());
         customerDto.setForename(customer.getForename());
         customerDto.setSurname(customer.getSurname());
+        customerDto.setAddress(AddressMapper.addressToAddressCreateDto(customer.getAddress()));
         return customerDto;
     }
 }
