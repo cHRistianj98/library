@@ -1,0 +1,33 @@
+# Get all authors
+GET http://localhost:8082/authors
+###
+
+# Get one author
+GET http://localhost:8082/authors/7751726559143639327
+###
+
+# Add one author
+POST http://localhost:8082/authors
+Content-Type: application/json
+
+{
+  "forename": "Krystian",
+  "surname": "Kania"
+}
+###
+
+# Update one author
+PUT http://localhost:8082/authors
+Content-Type: application/json
+
+{
+  "id": "7751726559143639327",
+  "forename": "Jan",
+  "surname": "Kowalski"
+}
+###
+
+# Delete one author
+DELETE http://localhost:8082/authors/11
+Content-Type: application/json
+###

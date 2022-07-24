@@ -24,7 +24,7 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @ApiOperation("Get address")
+    @ApiOperation("Get author")
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "Server error"),
             @ApiResponse(code = 400, message = "Bad Request"),
@@ -56,7 +56,7 @@ public class AuthorController {
             @ApiResponse(code = 200, message = "Successful added", response = Author.class)
     })
     @PostMapping
-    private AuthorDto saveAuthor(@RequestBody @Valid AuthorCreateDto author) {
+    public AuthorDto saveAuthor(@RequestBody @Valid AuthorCreateDto author) {
         return authorService.saveAuthor(author);
     }
 
@@ -79,8 +79,8 @@ public class AuthorController {
             @ApiResponse(code = 404, message = "Service not found"),
             @ApiResponse(code = 200, message = "Successful deleted")
     })
-    @DeleteMapping
-    private void deleteAuthor(Long authorId) {
-        authorService.deleteAuthor(authorId);
+    @DeleteMapping("/{id}")
+    public Long deleteAuthor(@PathVariable Long id) {
+        return authorService.deleteAuthor(id);
     }
 }

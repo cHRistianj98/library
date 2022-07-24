@@ -1,39 +1,26 @@
 package pl.distributed.library.service;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.distributed.library.dto.*;
-import pl.distributed.library.entity.Address;
 import pl.distributed.library.entity.Author;
-import pl.distributed.library.entity.Library;
 import pl.distributed.library.exception.ResourceNotFoundException;
-import pl.distributed.library.mapper.AddressMapper;
 import pl.distributed.library.mapper.AuthorMapper;
-import pl.distributed.library.mapper.LibraryMapper;
 import pl.distributed.library.repository.AuthorRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
-    private AuthorRepository authorRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final AuthorRepository authorRepository;
 
     @Autowired
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
-    @Transactional
     public AuthorDto saveAuthor(AuthorCreateDto authorDto) {
         Author author = new Author();
         author.setForename(authorDto.getForename());
@@ -42,9 +29,10 @@ public class AuthorService {
         return AuthorMapper.authorToAuthorDto(authorFromRepo);
     }
 
-    public void deleteAuthor(Long authorId) {
-        Author author = authorRepository.findById(authorId).orElseThrow();
+    public Long deleteAuthor(Long authorId) {
+        Author author = authorRepository.findById(authorId).orElseThrow(ResourceNotFoundException::new);
         authorRepository.delete(author);
+        return authorId;
     }
 
     public AuthorDto updateAuthor(AuthorUpdateDto authorUpdateDto) {
