@@ -2,6 +2,7 @@ package pl.distributed.library.mapper;
 
 import pl.distributed.library.dto.BookBorrowingDto;
 import pl.distributed.library.dto.BookDto;
+import pl.distributed.library.entity.AuthorAssignment;
 import pl.distributed.library.entity.Book;
 
 import java.util.Collections;
@@ -31,15 +32,15 @@ public class BookMapper {
 //            bookDto.setBorrowings(Collections.emptyList());
 //        }
 
-//        if (Objects.nonNull(book.getAuthorAssignments())) {
-//            bookDto.setAuthors(book.getAuthorAssignments()
-//                    .stream()
-//                    .map(AuthorAssignment::getAuthor)
-//                    .map(AuthorMapper::authorToAuthorUpdateDto)
-//                    .collect(Collectors.toList()));
-//        } else {
-//            bookDto.setAuthors(Collections.emptyList());
-//        }
+        if (Objects.nonNull(book.getAuthorAssignments())) {
+            bookDto.setAuthors(book.getAuthorAssignments()
+                    .stream()
+                    .map(AuthorAssignment::getAuthor)
+                    .map(AuthorMapper::authorToAuthorUpdateDto)
+                    .collect(Collectors.toList()));
+        } else {
+            bookDto.setAuthors(Collections.emptyList());
+        }
         return bookDto;
     }
 

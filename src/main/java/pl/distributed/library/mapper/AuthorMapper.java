@@ -3,7 +3,10 @@ package pl.distributed.library.mapper;
 import pl.distributed.library.dto.AuthorDto;
 import pl.distributed.library.dto.AuthorUpdateDto;
 import pl.distributed.library.entity.Author;
+import pl.distributed.library.entity.AuthorAssignment;
 
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,15 +22,15 @@ public class AuthorMapper {
         authorDto.setForename(author.getForename());
         authorDto.setSurname(author.getSurname());
         authorDto.setAuthorId(author.getId());
-//        if (Objects.nonNull(author.getAuthorAssignments())) {
-//            authorDto.setBooks(author.getAuthorAssignments()
-//                    .stream()
-//                    .map(AuthorAssignment::getBook)
-//                    .map(BookMapper::bookToBookDto)
-//                    .collect(Collectors.toList()));
-//        } else {
-//            authorDto.setBooks(Collections.emptyList());
-//        }
+        if (Objects.nonNull(author.getAuthorAssignments())) {
+            authorDto.setBooks(author.getAuthorAssignments()
+                    .stream()
+                    .map(AuthorAssignment::getBook)
+                    .map(BookMapper::bookToBookDto)
+                    .collect(Collectors.toList()));
+        } else {
+            authorDto.setBooks(Collections.emptyList());
+        }
         return authorDto;
     }
 

@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,12 +26,5 @@ public class Author implements Serializable {
     @NonNull
     private String surname;
 
-//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Set<AuthorAssignment> authorAssignments;
-
-//    public Author(@NotNull String forename, @NotNull String surname, Set<AuthorAssignment> authorAssignments) {
-//        this.forename = forename;
-//        this.surname = surname;
-//        this.authorAssignments = authorAssignments;
-//    }
+    private Set<AuthorAssignment> authorAssignments = new HashSet<>();
 }

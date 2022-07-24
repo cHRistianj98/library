@@ -3,7 +3,7 @@ GET http://localhost:8082/books
 ###
 
 # Get one book
-GET http://localhost:8082/books/-257005302071847611
+GET http://localhost:8082/books/-2439317141584283184
 ###
 
 # Add one book
@@ -32,5 +32,9 @@ Content-Type: application/json
 ###
 
 # Delete one book
-DELETE http://localhost:8082/books/-257005302071847611
+DELETE http://localhost:8082/books/-4173361462435163015
+###
+
+# Delete all books
+DELETE http://localhost:8082/books
 ###

@@ -1,0 +1,38 @@
+# Get all author assignments
+GET http://localhost:8082/author-assignments
+###
+
+## Get one book
+#GET http://localhost:8082/author-assignments/-257005302071847611
+####
+
+# Add one author assignment
+POST http://localhost:8082/author-assignments
+Content-Type: application/json
+
+{
+  "bookId": "4380511158122966078",
+  "authorId": "-3255742137821849954"
+}
+###
+#
+## Update one book
+#PUT http://localhost:8082/author-assignments
+#Content-Type: application/json
+#
+#{
+#  "id": "-257005302071847611",
+#  "title": "Mistrz czystego kodu",
+#  "description": "O czystym kodzie",
+#  "releaseYear": "2021",
+#  "availability": "true"
+#}
+####
+
+# Delete one author assignment
+DELETE http://localhost:8082/author-assignments/6093359093702779205
+###
+
+# Delete all author assignments
+DELETE http://localhost:8082/author-assignments
+###

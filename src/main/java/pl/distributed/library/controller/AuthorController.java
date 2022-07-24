@@ -83,4 +83,16 @@ public class AuthorController {
     public Long deleteAuthor(@PathVariable Long id) {
         return authorService.deleteAuthor(id);
     }
+
+    @ApiOperation("Delete all authors")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted")
+    })
+    @DeleteMapping
+    public void deleteAllAuthor() {
+         authorService.deleteAuthors();
+    }
 }

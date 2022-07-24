@@ -35,6 +35,11 @@ public class AuthorService {
         return authorId;
     }
 
+    public void deleteAuthors() {
+        List<Author> author = authorRepository.findAll();
+        author.forEach(authorRepository::delete);
+    }
+
     public AuthorDto updateAuthor(AuthorUpdateDto authorUpdateDto) {
         Author author = authorRepository.findById(authorUpdateDto.getId())
                 .orElseThrow(ResourceNotFoundException::new);

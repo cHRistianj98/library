@@ -95,4 +95,16 @@ public class BookController {
     public ResponseEntity<Long> deleteBook(@PathVariable Long id) {
         return ResponseEntity.ok(bookService.deleteBook(id));
     }
+
+    @ApiOperation("Delete books")
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful deleted", response = Long.class)
+    })
+    @DeleteMapping
+    public void deleteBooks() {
+        bookService.deleteBooks();
+    }
 }

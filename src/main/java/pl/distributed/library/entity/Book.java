@@ -1,10 +1,13 @@
 package pl.distributed.library.entity;
 
 import lombok.*;
+import org.springframework.data.annotation.Reference;
 import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,8 +32,7 @@ public class Book implements Serializable {
 
     private boolean availability;
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book", cascade = CascadeType.ALL)
-//    private Set<AuthorAssignment> authorAssignments;
+    private Set<AuthorAssignment> authorAssignments = new HashSet<>();
 //
 //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book", cascade = CascadeType.ALL)
 //    private Set<Borrowing> borrowings;
