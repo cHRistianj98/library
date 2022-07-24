@@ -1,10 +1,10 @@
-version: '3'
-
-networks:
-  app-tier:
-    driver: bridge
-
-services:
+#version: '3'
+#
+#networks:
+#  app-tier:
+#    driver: bridge
+#
+#services:
 #  library-backend:
 #    image: 'library:latest'
 #    build:
@@ -23,57 +23,39 @@ services:
 #    depends_on:
 #      - postgresql-master
 
-  postgresql-master:
-    image: 'bitnami/postgresql:11'
+version: '3'
+
+services:
+  redis:
+    image: redis:5.0.0
     container_name: master
-    networks:
-      - app-tier
     ports:
-      - '5433:5432'
-    restart: always
-    environment:
-      - POSTGRESQL_REPLICATION_MODE=master
-      - POSTGRESQL_REPLICATION_USER=replicator
-      - POSTGRESQL_REPLICATION_PASSWORD=replicator_pass
-      - POSTGRESQL_USERNAME=library
-      - POSTGRESQL_PASSWORD=zaq12wsx
-      - POSTGRESQL_DATABASE=library
-#      - POSTGRESQL_SYNCHRONOUS_COMMIT_MODE=on
-#      - POSTGRESQL_NUM_SYNCHRONOUS_REPLICAS=2
+      - "6379:6379"
+    networks:
+      - redis-replication
 
-  postgresql-slave:
-    image: 'bitnami/postgresql:11'
-    container_name: slave-1
-    networks:
-      - app-tier
-    restart: always
+  redis-slave-0:
+    image: redis:5.0.0
+    container_name: slave0
     ports:
-      - '5434:5432'
+      - "6380:6379"
+    command: redis-server --slaveof master 6379
     depends_on:
-      - postgresql-master
-    environment:
-      - POSTGRESQL_REPLICATION_MODE=slave
-      - POSTGRESQL_REPLICATION_USER=replicator
-      - POSTGRESQL_REPLICATION_PASSWORD=replicator_pass
-      - POSTGRESQL_MASTER_HOST=postgresql-master
-      - POSTGRESQL_PASSWORD=zaq12wsx
-      - POSTGRESQL_MASTER_PORT_NUMBER=5432
-
-
-  postgresql-slave2:
-    image: 'bitnami/postgresql:11'
-    container_name: slave-2
-    restart: always
+      - redis
     networks:
-      - app-tier
+      - redis-replication
+
+  redis-slave-1:
+    image: redis:5.0.0
+    container_name: slave2
     ports:
-      - '5435:5432'
+      - "6381:6379"
+    command: redis-server --slaveof master 6379
     depends_on:
-      - postgresql-master
-    environment:
-      - POSTGRESQL_REPLICATION_MODE=slave
-      - POSTGRESQL_REPLICATION_USER=replicator
-      - POSTGRESQL_REPLICATION_PASSWORD=replicator_pass
-      - POSTGRESQL_PASSWORD=zaq12wsx
-      - POSTGRESQL_MASTER_HOST=postgresql-master
-      - POSTGRESQL_MASTER_PORT_NUMBER=5432
+      - redis-slave-0
+    networks:
+      - redis-replication
+
+networks:
+  redis-replication:
+    driver: bridge
