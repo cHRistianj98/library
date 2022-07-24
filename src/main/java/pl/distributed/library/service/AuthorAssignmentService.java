@@ -64,11 +64,8 @@ public class AuthorAssignmentService {
 
     @Transactional
     public Long deleteAuthorAssignment(Long id) {
-        try {
-            authorAssignmentRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException ex) {
-            throw new ResourceNotFoundException();
-        }
+        AuthorAssignment authorAssignment = authorAssignmentRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        authorAssignmentRepository.delete(authorAssignment);
         return id;
     }
 }

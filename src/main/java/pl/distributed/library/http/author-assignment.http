@@ -1,0 +1,25 @@
+# Get all author assignments
+GET http://localhost:8080/author-assignments
+###
+
+# Get one book
+GET http://localhost:8080/author-assignments/1
+###
+
+# Add one author assignment
+POST http://localhost:8080/author-assignments
+Content-Type: application/json
+
+{
+  "bookId": "4380511158122966078",
+  "authorId": "-3255742137821849954"
+}
+###
+
+# Delete one author assignment
+DELETE http://localhost:8080/author-assignments/1
+###
+
+# Delete all author assignments
+DELETE http://localhost:8080/author-assignments
+###

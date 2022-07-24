@@ -1,0 +1,37 @@
+# Get all authors
+GET http://localhost:8080/authors
+###
+
+# Get one author
+GET http://localhost:8080/authors/-1504349758781620508
+###
+
+# Add one author
+POST http://localhost:8080/authors
+Content-Type: application/json
+
+{
+  "forename": "Krystian",
+  "surname": "Kania"
+}
+###
+
+# Update one author
+PUT http://localhost:8080/authors
+Content-Type: application/json
+
+{
+  "id": "-1504349758781620508",
+  "forename": "Jan",
+  "surname": "Kowalski"
+}
+###
+
+# Delete one author
+DELETE http://localhost:8080/authors/462292441390549207
+Content-Type: application/json
+###
+
+# Delete all authors
+DELETE http://localhost:8080/authors
+###

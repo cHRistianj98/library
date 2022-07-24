@@ -1,0 +1,40 @@
+# Get all books
+GET http://localhost:8080/books
+###
+
+# Get one book
+GET http://localhost:8080/books/-2439317141584283184
+###
+
+# Add one book
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "title": "Mistrz czystego kodu",
+  "description": "O czystym kodzie",
+  "releaseYear": 2020,
+  "authors": []
+}
+###
+
+# Update one book
+PUT http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "id": "-257005302071847611",
+  "title": "Mistrz czystego kodu",
+  "description": "O czystym kodzie",
+  "releaseYear": "2021",
+  "availability": "true"
+}
+###
+
+# Delete one book
+DELETE http://localhost:8080/books/-4173361462435163015
+###
+
+# Delete all books
+DELETE http://localhost:8080/books
+###
